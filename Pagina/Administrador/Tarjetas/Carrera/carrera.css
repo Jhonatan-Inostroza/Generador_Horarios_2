@@ -1,0 +1,22 @@
+.grid-carreras {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.tarjeta-carrera {
+    padding: 16px;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.tarjeta-carrera:hover {
+    background: #f1f7ff;
+    border-color: #1976d2;
+}

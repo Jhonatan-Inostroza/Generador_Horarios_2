@@ -1,0 +1,18 @@
+.grid-ciclos {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.tarjeta-ciclo {
+    padding: 12px 18px;
+    background: #eeeeee;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.tarjeta-ciclo:hover {
+    background: #dbe9ff;
+}

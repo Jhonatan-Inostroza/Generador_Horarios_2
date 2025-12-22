@@ -1,0 +1,26 @@
+.lista-grupo-horario-container {
+    margin-top: 20px;
+}
+
+.tabla-grupos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: #ffffff;
+}
+
+.tabla-grupos th,
+.tabla-grupos td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.tabla-grupos th {
+    background: #f0f4ff;
+    font-weight: bold;
+}
+
+.tabla-grupos tr:hover {
+    background: #f9f9f9;
+}

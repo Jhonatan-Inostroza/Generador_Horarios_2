@@ -1,0 +1,18 @@
+.grid-asignaturas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.tarjeta-asignatura {
+    padding: 14px;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.tarjeta-asignatura:hover {
+    background: #f9f9f9;
+}

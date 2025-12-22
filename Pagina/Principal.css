@@ -1,0 +1,25 @@
+.card-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.card {
+    width: 200px;
+    padding: 30px;
+    text-align: center;
+    border-radius: 15px;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-decoration: none;
+    color: black;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    background: #e0e0e0;
+}
+
+.icon { font-size: 50px; }

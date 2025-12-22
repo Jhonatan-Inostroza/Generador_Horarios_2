@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Creador de Horarios</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- XLSX -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+    <!-- CSS propio -->
+    <link rel="stylesheet" href="/generador/generador.css">
+    <script type="module" src="/generador/main.js"></script>
+
+
+
+</head>
+
+<body class="bg-gray-100 flex justify-center min-h-screen p-4">
+
+<div class="bg-white rounded-xl shadow-xl p-8 max-w-7xl w-full">
+
+    <h1 class="text-3xl font-bold text-center text-blue-700 mb-8">
+        Creador de Horarios Académicos
+    </h1>
+
+    <!-- ===================== TABS ===================== -->
+    <div class="mb-6 border-b">
+        <nav class="flex gap-6">
+            <button id="tab-db" class="tab-btn active">Buscar en la Base de Datos</button>
+            <button id="tab-excel" class="tab-btn">Tengo un archivo Excel</button>
+        </nav>
+    </div>
+
+    <!-- ===================== TAB DB ===================== -->
+    <section id="tab-content-db">
+        <p class="text-gray-600">(Pendiente de integrar con la base de datos)</p>
+    </section>
+
+    <!-- ===================== TAB EXCEL ===================== -->
+    <section id="tab-content-excel" class="hidden">
+
+        <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 mb-6">
+            <p class="text-sm text-blue-700 mb-4">
+                Columnas requeridas:
+                ASIGNATURA, GRUPO HORARIO, DOCENTE, DÍA, HORA INICIO, HORA FIN
+            </p>
+
+            <div class="flex gap-4">
+                <input type="file" id="excel-file-input" accept=".xlsx,.xls">
+                <button id="btn-upload-excel" class="btn-primary">Cargar Excel</button>
+            </div>
+        </div>
+
+        <div id="step-select-asignaturas-excel" class="hidden">
+            <ul id="asignaturas-list-excel" class="space-y-4"></ul>
+
+            <button id="btn-generate-excel" class="btn-success mt-6 hidden">
+                Generar Horarios
+            </button>
+        </div>
+
+    </section>
+</div>
+
+<!-- ===================== MODAL ===================== -->
+<div id="schedule-modal" class="modal">
+    <div class="modal-content">
+
+        <span id="close-modal" class="close-btn">&times;</span>
+
+        <!-- HEADER -->
+        <div class="flex justify-between items-center mb-4">
+            <button id="prev-schedule" class="btn-nav">Anterior</button>
+
+            <h3 id="schedule-title" class="font-bold text-lg"></h3>
+
+            <div class="flex gap-2">
+                <button
+                    id="btn-print-excel"
+                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                    Imprimir
+                </button>
+                <button id="next-schedule" class="btn-nav">Siguiente</button>
+            </div>
+        </div>
+
+        <!-- BODY -->
+        <div class="modal-body">
+            <div id="schedule-grid" class="schedule-scroll"></div>
+            <div id="legend-box" class="legend-box"></div>
+        </div>
+
+    </div>
+</div>
+
+
+
+</body>
+</html>

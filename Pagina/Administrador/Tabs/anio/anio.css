@@ -1,0 +1,22 @@
+.tabs-anio-container {
+    margin-top: 20px;
+}
+
+.tabs-anio {
+    display: flex;
+    gap: 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.tab-anio {
+    padding: 10px 16px;
+    cursor: pointer;
+    background: #f3f3f3;
+    border-radius: 6px 6px 0 0;
+    font-weight: bold;
+}
+
+.tab-anio.active {
+    background: #ffffff;
+    border-bottom: 2px solid white;
+}

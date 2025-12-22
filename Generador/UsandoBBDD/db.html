@@ -1,0 +1,77 @@
+<!-- db.html -->
+
+<div id="db-container" class="space-y-6">
+
+    <!-- AÑO ACADÉMICO -->
+    <div>
+        <label class="label">Año Académico</label>
+        <select id="select-anio" class="db-select">
+            <option value="">Seleccione año académico</option>
+        </select>
+    </div>
+
+    <!-- CICLO ACADÉMICO -->
+    <div>
+        <label class="label">Ciclo Académico</label>
+        <select id="select-anio-ciclo" class="select" disabled></select>
+    </div>
+
+    <!-- CARRERAS -->
+    <div>
+        <h3 class="title">Carreras Universitarias</h3>
+        <div id="carreras-container" class="grid grid-cols-2 gap-4"></div>
+    </div>
+
+    <!-- CICLOS + ASIGNATURAS -->
+    <div>
+        <h3 class="title">Ciclos Curriculares</h3>
+        <div id="ciclos-container" class="space-y-4"></div>
+    </div>
+
+    <!-- GENERAR -->
+    <button id="btn-generate-db" class="btn-success hidden">
+        Generar Horarios
+    </button>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- MODAL DE VISUALIZACIÓN DE HORARIOS -->
+<!-- ===================================================== -->
+<div id="schedule-modal" class="modal hidden">
+
+    <div class="modal-content">
+
+        <!-- HEADER -->
+        <div class="modal-header">
+            <h2 id="schedule-title">Horario</h2>
+
+            <div class="modal-actions">
+                <button id="btn-print-schedules" class="btn-primary">
+                    Imprimir seleccionados
+                </button>
+                <button id="close-modal" class="btn-close">✕</button>
+            </div>
+        </div>
+
+        <!-- CONTROLES -->
+        <div class="modal-controls">
+            <button id="prev-schedule" class="btn-nav">◀</button>
+            <button id="next-schedule" class="btn-nav">▶</button>
+        </div>
+
+        <!-- CUERPO PRINCIPAL -->
+        <div class="modal-body">
+
+            <!-- GRID -->
+            <div id="schedule-grid"></div>
+
+            <!-- LEYENDA -->
+            <div id="legend-box"></div>
+
+        </div>
+
+    </div>
+</div>
+
+<link rel="stylesheet" href="/generador/UsandoBBDD/stylesDB.css">

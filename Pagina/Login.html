@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio de sesión</title>
+    <link rel="stylesheet" href="/css/Login.css">
+</head>
+<body>
+
+<div class="login-container">
+    <h1>Inicia sesión</h1>
+
+    <form method="POST" action="/login"> <input type="hidden" name="rol" id="rol_input">
+    
+        <input type="text" name="usuario" placeholder="Usuario" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <button type="submit">Ingresar</button>
+    </form>
+
+    <p class="login-link">
+        ¿No tienes cuenta?
+        <a href="/registro">Crear cuenta</a>
+    </p>
+</div>
+
+</body>
+</html>
+<script>
+    // Captura el ?rol= de la URL y lo pone en el input hidden
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById('rol_input').value = params.get('rol');
+</script>

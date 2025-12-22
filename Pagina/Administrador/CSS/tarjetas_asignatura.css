@@ -1,0 +1,35 @@
+.asignatura-tarjeta {
+    display: flex;
+    flex-direction: column; /* apila inputs verticalmente */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.asignatura-tarjeta + .asignatura-tarjeta {
+    margin-top: 10px; /* espacio entre cada asignatura */
+}
+
+.asignatura-tarjeta input {
+    margin: 5px 0;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.asignatura-tarjeta button.guardar-asignatura {
+    margin-top: 8px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.asignatura-tarjeta button.guardar-asignatura:hover {
+    background-color: #218838;
+}
