@@ -47,12 +47,28 @@
             <p class="text-sm text-blue-700 mb-4">
                 Columnas requeridas:
                 ASIGNATURA, GRUPO HORARIO, DOCENTE, DÍA, HORA INICIO, HORA FIN
+                <br>
+                Paso 1: Seleccionar excel.
+                <br>
+                Paso 2: Una vez seleccionado el excel dar click al botón de "Cargar Excel"
             </p>
 
-            <div class="flex gap-4">
+            <div class="flex gap-4 items-center">
                 <input type="file" id="excel-file-input" accept=".xlsx,.xls">
-                <button id="btn-upload-excel" class="btn-primary">Cargar Excel</button>
+
+                <button id="btn-upload-excel" class="btn-primary">
+                    Cargar Excel
+                </button>
+
+                <a
+                    href="/generador/Excel_Ejemplo.xlsx"
+                    download
+                    class="text-blue-600 hover:text-blue-800 underline text-sm"
+                >
+                    Descargar Excel de ejemplo
+                </a>
             </div>
+
         </div>
 
         <div id="step-select-asignaturas-excel" class="hidden">

@@ -1,5 +1,5 @@
 entorno/
-*.db
+
 __pycache__/
 *.pyc
 mis_tablas.erd.json

@@ -3,22 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Seleccione Perfil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/Principal.css">
 </head>
 <body>
+
     <div class="container">
-        <h1>Bienvenido al Sistema</h1>
+
+        <!-- HEADER -->
+        <header class="header">
+            <h1>Sistema de Gestión Académica</h1>
+            <p class="subtitle">Seleccione su perfil para continuar</p>
+        </header>
+
+        <!-- CARDS -->
         <div class="card-container">
             <a href="/login?rol=admin" class="card">
                 <div class="icon">⚙️</div>
                 <h2>ADMINISTRADOR</h2>
+                <p>Gestión y configuración del sistema</p>
             </a>
 
             <a href="/login?rol=user" class="card">
                 <div class="icon">👤</div>
                 <h2>USUARIO</h2>
+                <p>Acceso a horarios y consultas</p>
             </a>
         </div>
+
     </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>
+            © 2025 Jhonatan Inostroza. Todos los derechos reservados.
+        </p>
+        <p class="footer-small">
+            Sistema de generación de horarios académicos
+        </p>
+    </footer>
+
 </body>
 </html>

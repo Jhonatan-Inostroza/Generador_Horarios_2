@@ -1,0 +1,104 @@
+/* ================== RESET BÁSICO ================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* ================== BODY ================== */
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #1f2937;
+    /*background: red !important;*/
+}
+
+/* ================== CONTENEDOR ================== */
+.container {
+    text-align: center;
+    padding-top: 80px;
+}
+
+/* ================== HEADER ================== */
+.header h1 {
+    font-size: 2.4rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #dbeafe;
+    margin-bottom: 50px;
+}
+
+/* ================== CARDS ================== */
+.card-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 240px;
+    padding: 35px 25px;
+    text-align: center;
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+    text-decoration: none;
+    color: #1f2937;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.35);
+}
+
+/* ================== ICONOS ================== */
+.icon {
+    font-size: 56px;
+    margin-bottom: 15px;
+}
+
+.card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+/* ================== FOOTER ================== */
+.footer {
+    background: rgba(0,0,0,0.25);
+    color: #e5e7eb;
+    text-align: center;
+    padding: 15px 10px;
+    font-size: 0.85rem;
+}
+
+.footer-small {
+    font-size: 0.75rem;
+    color: #cbd5f5;
+    margin-top: 4px;
+}
+
+/* ================== RESPONSIVE ================== */
+@media (max-width: 600px) {
+    .card {
+        width: 90%;
+    }
+
+    .header h1 {
+        font-size: 1.8rem;
+    }
+}
