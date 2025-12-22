@@ -1,17 +1,56 @@
-body { font-family: Inter, system-ui; }
+/* =========================
+   BASE
+========================= */
 
-.tab-btn { padding: 10px; border-bottom: 2px solid transparent; }
-.tab-btn.active { border-color: #3b82f6; color: #3b82f6; }
+body {
+    font-family: Inter, system-ui;
+}
 
-.btn-primary { background:#3b82f6; color:#fff; padding:8px 16px; border-radius:6px; }
-.btn-success { background:#10b981; color:#fff; padding:10px; border-radius:6px; }
-.btn-nav { background:#e5e7eb; padding:6px 12px; border-radius:4px; }
+/* =========================
+   TABS Y BOTONES
+========================= */
+
+.tab-btn {
+    padding: 10px;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    border-color: #3b82f6;
+    color: #3b82f6;
+}
+
+.btn-primary {
+    background: #3b82f6;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+}
+
+.btn-success {
+    background: #10b981;
+    color: #fff;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.btn-nav {
+    background: #e5e7eb;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.85em;
+}
+
+/* =========================
+   MODAL
+========================= */
 
 .modal {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,.5);
+    background: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
     z-index: 50;
@@ -23,48 +62,50 @@ body { font-family: Inter, system-ui; }
     height: 70vh;
     max-width: 1200px;
     max-height: 90vh;
-    padding: 1.5rem;
+    padding: 16px;
     border-radius: 12px;
-    overflow: auto;
     display: flex;
     flex-direction: column;
+    font-size: clamp(12px, 1.1vw, 15px);
+    overflow: hidden;
 }
 
-.close-btn { float:right; font-size:24px; cursor:pointer; }
-
-.course-box {
-    border-radius:8px;
-    padding:6px;
-    margin-bottom:6px;
-    color:#1e293b;
-    font-size:12px;
-    box-shadow:0 1px 2px rgba(0,0,0,.15);
+.close-btn {
+    font-size: 24px;
+    cursor: pointer;
 }
 
-.legend-box {
-    background:#f8fafc;
-    border:1px solid #e2e8f0;
-    border-radius:8px;
-    padding:10px;
+/* =========================
+   CUERPO DEL MODAL
+========================= */
+
+.modal-body {
+    display: flex;
+    gap: 16px;
+    flex: 1;
+    overflow: hidden;
 }
 
-.legend-item {
-    display:flex;
-    gap:8px;
-    margin-top:8px;
+/* =========================
+   HORARIO (SCROLL)
+========================= */
+
+.schedule-scroll {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: auto;
+    padding-right: 6px;
 }
 
-.legend-color {
-    width:16px;
-    height:16px;
-    border-radius:4px;
-}
-
+/* =========================
+   TABLA HORARIO
+========================= */
 
 .schedule-table {
     display: grid;
-    grid-template-columns: 80px repeat(6, 1fr);
-    gap: 2px;
+    grid-template-columns: 100px repeat(6, 1fr);
+    width: 100%;
+    min-width: 900px;
 }
 
 .header {
@@ -74,6 +115,7 @@ body { font-family: Inter, system-ui; }
     font-weight: bold;
     padding: 6px;
     font-size: 12px;
+    border: 1px solid #ddd;
 }
 
 .hour {
@@ -81,119 +123,101 @@ body { font-family: Inter, system-ui; }
     text-align: center;
     font-size: 12px;
     padding: 6px;
+    border: 1px solid #ddd;
 }
 
 .cell {
-    min-height: 60px;
-    background: #f8fafc;
     position: relative;
+    min-height: 70px;
+    background: #f8fafc;
+    border: 1px solid #ddd;
 }
+
+/* =========================
+   CURSOS
+========================= */
 
 .course-box {
     position: absolute;
     inset: 2px;
     border-radius: 6px;
     padding: 4px;
-    font-size: 11px;
-    color: #1f2937;
+    font-size: clamp(10px, 2.2vw, 12px);
+    color: white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
     overflow: hidden;
 }
 
-/* Escala tipográfica automática */
-.modal-content {
-    font-size: clamp(12px, 1.1vw, 15px);
+/* =========================
+   LEYENDA
+========================= */
+
+.legend-box {
+    width: 260px;
+    background: #f8fafc;
+    border-left: 1px solid #ddd;
+    padding-left: 12px;
+    overflow-y: auto;
 }
-.schedule-table {
-    width: 100%;
-    min-width: 900px;
+
+.legend-item {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
 }
-#schedule-grid {
-    overflow-x: auto;
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
 }
+
+/* =========================
+   TITULO MODAL
+========================= */
+
 .modal-content h3 {
     font-size: 1.1em;
 }
 
-.btn-nav {
-    font-size: 0.85em;
-    padding: 6px 10px;
-}
+/* =========================
+   RESPONSIVE (MÓVIL)
+========================= */
 
+@media (max-width: 768px) {
 
-/* ================= MODAL ================= */
+    .modal-content {
+        width: 95vw;
+        height: 90vh;
+        padding: 10px;
+        font-size: clamp(11px, 2.5vw, 14px);
+    }
 
-.modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 50;
-}
+    .modal-body {
+        flex-direction: column;
+    }
 
-.modal-content {
-    width: 70vw;
-    height: 70vh;
-    background: white;
-    border-radius: 12px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-}
+    /* Leyenda abajo */
+    .legend-box {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid #ddd;
+        padding-top: 10px;
+        max-height: 130px;
+    }
 
-/* BODY FLEX */
-.modal-body {
-    display: flex;
-    gap: 16px;
-    flex: 1;
-    overflow: hidden; /* IMPORTANTE */
-}
+    /* Mantener columnas legibles */
+    .schedule-table {
+        min-width: 720px;
+    }
 
-/* SCROLL SOLO EN EL HORARIO */
-.schedule-scroll {
-    flex: 1;
-    overflow-y: auto;
-    padding-right: 6px;
-}
+    .btn-nav {
+        font-size: 0.75em;
+        padding: 4px 8px;
+    }
 
-/* LEYENDA FIJA */
-.legend-box {
-    width: 260px;
-    overflow-y: auto;
-    border-left: 1px solid #ddd;
-    padding-left: 12px;
-}
-
-/* TABLA */
-.schedule-table {
-    display: grid;
-    grid-template-columns: 100px repeat(6, 1fr);
-}
-
-/* CELDAS */
-.header {
-    font-weight: bold;
-    background: #f3f4f6;
-    text-align: center;
-    padding: 6px;
-    border: 1px solid #ddd;
-}
-
-.hour {
-    padding: 6px;
-    border: 1px solid #ddd;
-    background: #fafafa;
-}
-
-.cell {
-    border: 1px solid #ddd;
-    min-height: 70px;
-}
-
-.course-box {
-    color: white;
-    padding: 4px;
-    border-radius: 6px;
-    font-size: 12px;
+    .modal-content h3 {
+        font-size: 1em;
+        text-align: center;
+    }
 }

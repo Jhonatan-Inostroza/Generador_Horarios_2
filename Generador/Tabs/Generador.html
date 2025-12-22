@@ -53,21 +53,32 @@
                 Paso 2: Una vez seleccionado el excel dar click al botón de "Cargar Excel"
             </p>
 
-            <div class="flex gap-4 items-center">
-                <input type="file" id="excel-file-input" accept=".xlsx,.xls">
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4">
 
-                <button id="btn-upload-excel" class="btn-primary">
+                <input
+                    type="file"
+                    id="excel-file-input"
+                    accept=".xlsx,.xls"
+                    class="w-full sm:w-auto border border-gray-300 rounded p-2"
+                >
+
+                <button
+                    id="btn-upload-excel"
+                    class="btn-primary w-full sm:w-auto"
+                >
                     Cargar Excel
                 </button>
 
                 <a
                     href="/generador/Excel_Ejemplo.xlsx"
                     download
-                    class="text-blue-600 hover:text-blue-800 underline text-sm"
+                    class="text-blue-600 hover:text-blue-800 underline text-sm text-center sm:text-left"
                 >
                     Descargar Excel de ejemplo
                 </a>
+
             </div>
+
 
         </div>
 
