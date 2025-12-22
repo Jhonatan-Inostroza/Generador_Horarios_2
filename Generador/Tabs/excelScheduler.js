@@ -257,6 +257,10 @@ function normalizeDay(day) {
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '');
 }
+function timeToMinutes(t) {
+    const [h, m] = t.split(':').map(Number);
+    return h * 60 + m;
+}
 
 function render() {
     const scheduleObj = schedules[index];
@@ -308,11 +312,20 @@ function render() {
         const asignatura = database.asignaturas.find(a => a.id === g.asignatura_id);
 
         g.horarios.forEach(h => {
-            const cell = document.querySelector(
-                `.cell[data-day="${normalizeDay(h.dia)}"][data-hour="${h.hora_inicio}"]`
-            );
 
-            if (cell) {
+            const startMin = timeToMinutes(h.hora_inicio);
+            const endMin   = timeToMinutes(h.hora_fin);
+
+            for (let m = startMin; m < endMin; m += 60) {
+
+                const hour = String(Math.floor(m / 60)).padStart(2, '0') + ':00';
+
+                const cell = document.querySelector(
+                    `.cell[data-day="${normalizeDay(h.dia)}"][data-hour="${hour}"]`
+                );
+
+                if (!cell) continue;
+
                 cell.innerHTML = `
                     <div class="course-box" style="background:${color}">
                         <strong>${asignatura.nombre}</strong><br>
@@ -322,6 +335,7 @@ function render() {
                 `;
             }
         });
+
 
         legendBox.innerHTML += `
             <div class="legend-item">
