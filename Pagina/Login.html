@@ -3,30 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Inicio de sesión</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/Login.css">
 </head>
 <body>
 
-<div class="login-container">
-    <h1>Inicia sesión</h1>
+    <div class="page-wrapper">
 
-    <form method="POST" action="/login"> <input type="hidden" name="rol" id="rol_input">
-    
-        <input type="text" name="usuario" placeholder="Usuario" required>
-        <input type="password" name="password" placeholder="Contraseña" required>
-        <button type="submit">Ingresar</button>
-    </form>
+        <div class="login-container">
+            <h1>Iniciar sesión</h1>
 
-    <p class="login-link">
-        ¿No tienes cuenta?
-        <a href="/registro">Crear cuenta</a>
-    </p>
-</div>
+            <form method="POST" action="/login">
+                <input type="hidden" name="rol" id="rol_input">
+
+                <input type="text" name="usuario" placeholder="Usuario" required>
+                <input type="password" name="password" placeholder="Contraseña" required>
+
+                <button type="submit">Ingresar</button>
+            </form>
+
+            <p class="login-link">
+                ¿No tienes cuenta?
+                <a href="/registro">Crear cuenta</a>
+            </p>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <p>© 2025 Jhonatan Inostroza. Todos los derechos reservados.</p>
+            <p class="footer-small">
+                Sistema de gestión y generación de horarios académicos
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Captura el ?rol= de la URL
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById('rol_input').value = params.get('rol');
+    </script>
 
 </body>
 </html>
-<script>
-    // Captura el ?rol= de la URL y lo pone en el input hidden
-    const params = new URLSearchParams(window.location.search);
-    document.getElementById('rol_input').value = params.get('rol');
-</script>
