@@ -1,167 +1,146 @@
-// dbSchedulePrinter.js
-
 // ======================================================
-// NORMALIZACIÓN DE DÍAS (con y sin tilde)
+// NORMALIZACIÓN DE DÍAS Y TIEMPO
 // ======================================================
 function normalizeDay(day) {
     return day
         .toUpperCase()
-        .normalize('NFD')                 // separa letras y tildes
-        .replace(/[\u0300-\u036f]/g, ''); // elimina tildes
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
 }
+
+function timeToMinutes(t) {
+    const [h, m] = t.split(':').map(Number);
+    return h * 60 + m;
+}
+
+// ======================================================
+// COLORES DETERMINISTAS
+// ======================================================
+const colors = [
+    '#60a5fa', '#34d399', '#fbbf24', '#f87171',
+    '#a78bfa', '#22d3ee', '#fb7185', '#4ade80'
+];
+
+let colorMap = {};
+
+function getColor(key) {
+    if (!colorMap[key]) {
+        colorMap[key] = colors[Object.keys(colorMap).length % colors.length];
+    }
+    return colorMap[key];
+}
+
+// ======================================================
+// CONFIGURACIÓN DE COLUMNAS (Mapeo de Días)
+// ======================================================
+// Columna 1 es para la Hora. Lunes empieza en la 2.
+const dayColumnMap = { 
+    'LUNES': 2, 'MARTES': 3, 'MIERCOLES': 4, 
+    'JUEVES': 5, 'VIERNES': 6, 'SABADO': 7 
+};
 
 // ======================================================
 // IMPRESIÓN DE HORARIOS
 // ======================================================
+// ... (funciones normalizeDay y timeToMinutes se mantienen igual)
+
 export function printSchedules(selectedSchedules) {
     if (!selectedSchedules || !selectedSchedules.length) {
-        alert('No hay horarios seleccionados para imprimir');
+        alert('No hay horarios seleccionados');
         return;
     }
 
     const win = window.open('', '_blank');
-
     win.document.write(`
         <html>
         <head>
-            <title>Horarios</title>
-            <style>
-                @page {
-                    size: A4 landscape;
-                    margin: 10mm;
-                }
-
-                body {
-                    margin: 0;
-                    font-family: Arial, sans-serif;
-                }
-
-                .page {
-                    width: 100%;
-                    height: 100%;
-                    page-break-after: always;
-                    display: flex;
-                    flex-direction: column;
-                }
-
-                h2 {
-                    text-align: center;
-                    margin: 6px 0 10px 0;
-                }
-
-                .schedule-table {
-                    display: grid;
-                    grid-template-columns: 80px repeat(6, 1fr);
-                    flex: 1;
-                    border-collapse: collapse;
-                    font-size: 12px;
-                }
-
-                .header {
-                    background: #e5e7eb;
-                    font-weight: bold;
-                    border: 1px solid #9ca3af;
-                    text-align: center;
-                    padding: 4px;
-                }
-
-                .hour {
-                    background: #f3f4f6;
-                    border: 1px solid #9ca3af;
-                    text-align: center;
-                    padding: 4px;
-                    font-weight: bold;
-                }
-
-                .cell {
-                    border: 1px solid #d1d5db;
-                    position: relative;
-                }
-
-                .course-box {
-                    position: absolute;
-                    inset: 2px;
-                    border-radius: 6px;
-                    padding: 4px;
-                    font-size: 11px;
-                    color: #111827;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    text-align: center;
-                    box-sizing: border-box;
-                }
-            </style>
+            <title>Horario Final</title>
+            <link rel="stylesheet" href="/generador/UsandoBBDD/dbSchedulePrinter.css">
         </head>
         <body>
     `);
 
     selectedSchedules.forEach((schedule, idx) => {
-
-        // DÍAS INTERNOS (SIN TILDE)
-        const days = ['LUNES','MARTES','MIERCOLES','JUEVES','VIERNES','SABADO'];
-
-        // ETIQUETAS VISUALES (CON TILDE)
-        const dayLabels = {
-            LUNES: 'LUNES',
-            MARTES: 'MARTES',
-            MIERCOLES: 'MIÉRCOLES',
-            JUEVES: 'JUEVES',
-            VIERNES: 'VIERNES',
-            SABADO: 'SÁBADO'
-        };
-
-        const hours = [];
-        for (let h = 7; h < 24; h++) {
-            hours.push(`${String(h).padStart(2,'0')}:00`);
-        }
+        colorMap = {};
+        const days = ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO'];
+        const dayLabels = { LUNES:'LUNES', MARTES:'MARTES', MIERCOLES:'MIÉRCOLES', JUEVES:'JUEVES', VIERNES:'VIERNES', SABADO:'SÁBADO' };
 
         win.document.write(`
             <div class="page">
-                <h2>Horario ${idx + 1}</h2>
-
+                <h2 class="title-print">HORARIO ${idx + 1}</h2>
                 <div class="schedule-table">
-                    <div class="header">Hora</div>
-                    ${days.map(d => `<div class="header">${dayLabels[d]}</div>`).join('')}
-
-                    ${hours.map(h => `
-                        <div class="hour">
-                            ${h} - ${String(parseInt(h) + 1).padStart(2,'0')}:00
-                        </div>
-
-                        ${days.map(d => {
-                            const item = schedule.find(
-                                x =>
-                                    normalizeDay(x.day) === d &&
-                                    x.start === h
-                            );
-
-                            if (!item) {
-                                return `<div class="cell"></div>`;
-                            }
-
-                            return `
-                                <div class="cell">
-                                    <div class="course-box"
-                                        style="background:${item.color}">
-                                        <strong>${item.asignatura}</strong>
-                                        Grupo ${item.grupo}<br>
-                                        ${item.docente}
-                                    </div>
-                                </div>
-                            `;
-                        }).join('')}
-                    `).join('')}
-                </div>
-            </div>
+                    <div class="header" style="grid-column: 1; grid-row: 1;">HORA</div>
+                    ${days.map(d => `<div class="header" style="grid-column: ${dayColumnMap[d]}; grid-row: 1;">${dayLabels[d]}</div>`).join('')}
         `);
+
+        // Rango de horas: de 07:00 a 23:00 (para que termine 24:00)
+        const hours = [];
+        for (let h = 7; h < 24; h++) hours.push(`${String(h).padStart(2, '0')}:00`);
+
+        hours.forEach((h, hIdx) => {
+            const hourMin = timeToMinutes(h);
+            const rowIdx = hIdx + 2; // +2 porque la fila 1 es el header
+
+            // 1. Escribimos la etiqueta de la hora (columna 1)
+            win.document.write(`<div class="hour" style="grid-column: 1; grid-row: ${rowIdx}">${h}</div>`);
+            
+            days.forEach(d => {
+                const colIdx = dayColumnMap[d];
+
+                // BUSCAMOS SI UNA MATERIA EMPIEZA EXACTAMENTE A ESTA HORA
+                const blockStarting = schedule.find(b =>
+                    normalizeDay(b.day) === d &&
+                    timeToMinutes(b.start) === hourMin
+                );
+
+                // BUSCAMOS SI ESTA HORA ES PARTE DE UNA MATERIA QUE YA EMPEZÓ
+                const isMidBlock = schedule.some(b => {
+                    const start = timeToMinutes(b.start);
+                    const end = timeToMinutes(b.end);
+                    return normalizeDay(b.day) === d && hourMin > start && hourMin < end;
+                });
+
+                if (blockStarting) {
+                    // Calculamos cuánto espacio debe ocupar
+                    const span = (timeToMinutes(blockStarting.end) - timeToMinutes(blockStarting.start)) / 60;
+                    const color = getColor(`${blockStarting.asignatura}-${blockStarting.grupo}`);
+
+                    // ESTA ES LA CLAVE: Se escribe una sola vez con 'span'
+                    win.document.write(`
+                        <div class="cell filled" style="grid-column: ${colIdx}; grid-row: ${rowIdx} / span ${span}">
+                            <div class="course-box" style="background:${color}">
+                                <strong>${blockStarting.asignatura}</strong>
+                                <span>Grupo ${blockStarting.grupo}</span>
+                            </div>
+                        </div>
+                    `);
+                } else if (!isMidBlock) {
+                    // SI NO ESTÁ EMPEZANDO NI ESTÁ EN MEDIO, PINTAMOS CELDA VACÍA
+                    win.document.write(`<div class="cell" style="grid-column: ${colIdx}; grid-row: ${rowIdx}"></div>`);
+                }
+                // Si isMidBlock es verdadero, NO escribimos nada. 
+                // El 'span' que pusimos arriba llenará automáticamente este espacio.
+            });
+        });
+
+        win.document.write(`</div>`); // table
+
+        // LEYENDA COMPACTA
+        const legendKeys = [...new Set(schedule.map(b => `${b.asignatura}-${b.grupo}`))];
+        win.document.write(`<div class="legend-box">`);
+        legendKeys.forEach(key => {
+            const b = schedule.find(x => `${x.asignatura}-${x.grupo}` === key);
+            win.document.write(`
+                <div class="legend-item">
+                    <div class="legend-color" style="background:${getColor(key)}"></div>
+                    <span><strong>${b.asignatura}</strong> | G. ${b.grupo} <small>(${b.docente})</small></span>
+                </div>
+            `);
+        });
+        win.document.write(`</div></div>`);
     });
 
     win.document.write(`</body></html>`);
     win.document.close();
-
-    win.onload = () => {
-        win.focus();
-        win.print();
-    };
+    win.onload = () => setTimeout(() => { win.focus(); win.print(); }, 500);
 }

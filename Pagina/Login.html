@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Inicio de sesión</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tipografía profesional -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/Login.css">
 </head>
 <body>
@@ -11,21 +14,29 @@
     <div class="page-wrapper">
 
         <div class="login-container">
+
+            <!-- Logo -->
+            <img src="/css/logo.png" alt="Logo del sistema" class="login-logo">
+
             <h1>Iniciar sesión</h1>
+
+            <!-- Toast de error -->
+            <div id="toast" class="toast">{{ error }}</div>
 
             <form method="POST" action="/login">
                 <input type="hidden" name="rol" id="rol_input">
-
                 <input type="text" name="usuario" placeholder="Usuario" required>
                 <input type="password" name="password" placeholder="Contraseña" required>
-
                 <button type="submit">Ingresar</button>
             </form>
 
             <p class="login-link">
                 ¿No tienes cuenta?
-                <a href="/registro">Crear cuenta</a>
+                <a id="crear-cuenta-link" href="/registro">Crear cuenta</a>
             </p>
+
+            
+
         </div>
 
         <!-- FOOTER -->
@@ -37,11 +48,31 @@
         </footer>
 
     </div>
-
+    <!-- Captura del rol desde la URL -->
     <script>
-        // Captura el ?rol= de la URL
         const params = new URLSearchParams(window.location.search);
-        document.getElementById('rol_input').value = params.get('rol');
+        const rol = params.get('rol');  // rol del login actual
+        document.getElementById('rol_input').value = rol;
+
+        // Pasar el rol al link de Crear cuenta
+        const linkRegistro = document.getElementById("crear-cuenta-link");
+        if (rol) {
+            linkRegistro.href = `/registro?rol=${rol}`;
+        }
+    </script>
+
+    
+
+
+    <!-- Mostrar toast animado -->
+    <script>
+        const toast = document.getElementById("toast");
+        if (toast.textContent.trim() !== "") {
+            toast.classList.add("show");
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3000); // desaparece después de 3 segundos
+        }
     </script>
 
 </body>

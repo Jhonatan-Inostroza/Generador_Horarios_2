@@ -4,13 +4,15 @@
 # ---------------------------
 
 import os
-from flask import Flask, request, redirect, url_for, send_file
+#from flask import Flask, request, redirect, url_for, send_file
 
 from Pagina.Python_a_SQL.Usuarios import (
     inicializar_tabla,
     verificar_usuario,
     crear_usuario
 )
+from flask import Flask, request, redirect, url_for, send_file, render_template_string
+
 
 # ===========================
 # IMPORTAR BLUEPRINTS
@@ -84,23 +86,33 @@ def principal_route():
 # ===========================
 # LOGIN
 # ===========================
+
 @app.route("/login", methods=["GET", "POST"])
 def login_route():
+    error = None  # Variable para el mensaje de error
+
     if request.method == "POST":
         usuario = request.form["usuario"]
         password = request.form["password"]
         rol = request.form.get("rol")
+        rol_intento = "ADMINISTRADOR" if rol.lower() == "admin" else "USUARIO"
 
-        if verificar_usuario(usuario, password):
-            if rol == "admin":
+        if verificar_usuario(usuario, password, rol_intento):
+            if rol_intento == "ADMINISTRADOR":
                 return enviar_archivo_si_existe(HTML_SUBIR)
             else:
-                # 🔴 AQUÍ ESTÁ LA CLAVE
                 return redirect("/generador")
+        else:
+            error = "Usuario, contraseña o rol incorrecto"
 
-        return "Usuario o contraseña incorrectos"
+    # Cargar el HTML de login y reemplazar un marcador por el mensaje de error
+    with open(HTML_LOGIN, "r", encoding="utf-8") as f:
+        html = f.read()
 
-    return enviar_archivo_si_existe(HTML_LOGIN)
+    # Render simple usando un marcador {{ error }}
+    html = html.replace("{{ error }}", f'<p class="login-error">{error}</p>' if error else "")
+
+    return html
 
 
 # ===========================
@@ -112,16 +124,23 @@ def registro_route():
         usuario = request.form["usuario"]
         password = request.form["password"]
         confirmar = request.form["confirmar"]
+        rol = request.form.get("rol")  # capturamos el rol
 
+        # Validar contraseñas
         if password != confirmar:
             return "Las contraseñas no coinciden"
 
-        if crear_usuario(usuario, password):
-            return redirect(url_for("login_route"))
+        # Ajustamos el rol al formato de la base
+        rol_final = "ADMINISTRADOR" if rol == "admin" else "USUARIO"
+
+        if crear_usuario(usuario, password, rol_final):
+            # Redirigir al login con el rol correcto para iniciar sesión
+            return redirect(f"/login?rol={rol}")
 
         return "El usuario ya existe"
 
     return enviar_archivo_si_existe(HTML_REGISTRO)
+
 
 # ===========================
 # MAIN

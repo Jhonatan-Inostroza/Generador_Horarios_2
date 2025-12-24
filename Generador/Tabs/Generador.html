@@ -5,18 +5,20 @@
     <title>Creador de Horarios</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Tailwind -->
+    <!-- Tailwind (solo para layout general) -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- XLSX -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
     <!-- CSS propio -->
-    <link rel="stylesheet" href="/generador/generador.css">
-    <script type="module" src="/generador/main.js"></script>
+    <link rel="stylesheet" href="/generador/Tabs/generador.css">
 
+    <!-- CSS DEL MODAL REAL (BD y EXCEL comparten) -->
+    <link rel="stylesheet" href="/generador/UsandoBBDD/stylesDB.css">
 
-
+    <!-- MAIN -->
+    <script type="module" src="/generador/Tabs/main.js"></script>
 </head>
 
 <body class="bg-gray-100 flex justify-center min-h-screen p-4">
@@ -30,14 +32,20 @@
     <!-- ===================== TABS ===================== -->
     <div class="mb-6 border-b">
         <nav class="flex gap-6">
-            <button id="tab-db" class="tab-btn active">Buscar en la Base de Datos</button>
-            <button id="tab-excel" class="tab-btn">Tengo un archivo Excel</button>
+            <button id="tab-db" class="tab-btn active">
+                Buscar en la Base de Datos
+            </button>
+            <button id="tab-excel" class="tab-btn">
+                Tengo un archivo Excel
+            </button>
         </nav>
     </div>
 
     <!-- ===================== TAB DB ===================== -->
     <section id="tab-content-db">
-        <p class="text-gray-600">(Pendiente de integrar con la base de datos)</p>
+        <p class="text-gray-600">
+            (Pendiente de integrar con la base de datos)
+        </p>
     </section>
 
     <!-- ===================== TAB EXCEL ===================== -->
@@ -50,7 +58,7 @@
                 <br>
                 Paso 1: Seleccionar excel.
                 <br>
-                Paso 2: Una vez seleccionado el excel dar click al botón de "Cargar Excel"
+                Paso 2: Cargar Excel.
             </p>
 
             <div class="flex flex-col sm:flex-row sm:items-center gap-4">
@@ -72,20 +80,20 @@
                 <a
                     href="/generador/Excel_Ejemplo.xlsx"
                     download
-                    class="text-blue-600 hover:text-blue-800 underline text-sm text-center sm:text-left"
+                    class="text-blue-600 hover:text-blue-800 underline text-sm"
                 >
                     Descargar Excel de ejemplo
                 </a>
-
             </div>
-
-
         </div>
 
         <div id="step-select-asignaturas-excel" class="hidden">
             <ul id="asignaturas-list-excel" class="space-y-4"></ul>
 
-            <button id="btn-generate-excel" class="btn-success mt-6 hidden">
+            <button
+                id="btn-generate-excel"
+                class="btn-success mt-6 hidden"
+            >
                 Generar Horarios
             </button>
         </div>
@@ -93,39 +101,42 @@
     </section>
 </div>
 
-<!-- ===================== MODAL ===================== -->
-<div id="schedule-modal" class="modal">
+<!-- ===================================================== -->
+<!-- MODAL ÚNICO GLOBAL (EL MISMO QUE USA BASE DE DATOS) -->
+<!-- ===================================================== -->
+<div id="schedule-modal" class="modal hidden">
+
     <div class="modal-content">
 
-        <span id="close-modal" class="close-btn">&times;</span>
-
         <!-- HEADER -->
-        <div class="flex justify-between items-center mb-4">
-            <button id="prev-schedule" class="btn-nav">Anterior</button>
+        <div class="modal-header">
+            <h2 id="schedule-title">Horario</h2>
 
-            <h3 id="schedule-title" class="font-bold text-lg"></h3>
-
-            <div class="flex gap-2">
-                <button
-                    id="btn-print-excel"
-                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                >
-                    Imprimir
+            <div class="modal-actions">
+                <button id="btn-print-schedules" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                    Imprimir seleccionados
                 </button>
-                <button id="next-schedule" class="btn-nav">Siguiente</button>
+
+                <button id="close-modal" class="btn-close">✕</button>
             </div>
         </div>
 
-        <!-- BODY -->
+        <!-- CONTROLES -->
+        <div class="modal-controls">
+            <button id="prev-schedule" class="btn-nav">◀</button>
+            <button id="next-schedule" class="btn-nav">▶</button>
+        </div>
+
+        <!-- CUERPO -->
         <div class="modal-body">
-            <div id="schedule-grid" class="schedule-scroll"></div>
-            <div id="legend-box" class="legend-box"></div>
+
+            <div id="schedule-grid"></div>
+            <div id="legend-box"></div>
+
         </div>
 
     </div>
 </div>
-
-
 
 </body>
 </html>

@@ -1,0 +1,79 @@
+@page { size: A4 landscape; margin: 5mm; } /* Margen más pequeño */
+body { margin: 0; font-family: 'Arial', sans-serif; background: #fff; }
+
+.page {
+    page-break-after: always;
+    padding: 5px;
+    height: 195mm; /* Forzamos altura máxima de A4 landscape */
+    display: flex;
+    flex-direction: column;
+}
+
+.title-print { text-align: center; margin: 0 0 5px 0; font-size: 16px; }
+
+.schedule-table {
+    display: grid;
+    grid-template-columns: 80px repeat(6, 1fr);
+    /* REDUCIMOS LA ALTURA DE CADA FILA (32px es el punto dulce) */
+    grid-auto-rows: 32px; 
+    border: 1px solid #000;
+    flex-grow: 1; /* La tabla intenta ocupar el espacio disponible */
+}
+
+.header {
+    background: #374151;
+    color: #fff;
+    font-weight: bold;
+    font-size: 10px;
+    border: 0.5px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hour {
+    background: #f3f4f6;
+    border: 0.5px solid #9ca3af;
+    font-size: 9px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cell { border: 0.5px solid #e5e7eb; }
+
+.cell.filled { border: 0.5px solid #000; padding: 0; }
+
+.course-box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 9px; /* Fuente más pequeña para que no desborde */
+    line-height: 1.1;
+    text-align: center;
+}
+
+.course-box strong { font-size: 10px; }
+
+/* LEYENDA MÁS PEQUEÑA */
+.legend-box {
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas para ahorrar espacio vertical */
+    gap: 4px;
+    border: 1px solid #d1d5db;
+    padding: 4px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 9px;
+}
+
+.legend-color { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }

@@ -11,17 +11,28 @@
     <h1>Crear cuenta</h1>
 
     <form method="POST" action="/registro">
+        <input type="hidden" name="rol" id="rol_input">
         <input type="text" name="usuario" placeholder="Usuario" required>
         <input type="password" name="password" placeholder="Contraseña" required>
         <input type="password" name="confirmar" placeholder="Confirmar contraseña" required>
         <button type="submit">Registrarse</button>
     </form>
 
+
     <p class="login-link">
         ¿Ya tienes cuenta?
         <a href="/">Inicia sesión</a>
     </p>
 </div>
+
+    
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const rol = params.get('rol');  // puede ser "admin" o "user"
+        document.getElementById('rol_input').value = rol;
+    </script>
+
 
 </body>
 </html>
