@@ -71,10 +71,6 @@ def css(filename):
     ruta = os.path.join(PAGINA_DIR, "CSS", filename)
     return enviar_archivo_si_existe(ruta)
 
-@app.route("/img/<path:filename>")
-def img(filename):
-    ruta = os.path.join(PAGINA_DIR, "CSS", filename)  # tu logo y fondo están en CSS
-    return enviar_archivo_si_existe(ruta)
 
 @app.route("/js/<path:filename>")
 def js(filename):
