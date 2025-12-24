@@ -47,8 +47,8 @@ body {
     width: auto;                /* el ancho se ajusta automáticamente */
     max-width: 120px;           /* opcional: no crezca demasiado */
     margin: 0 auto 20px;        /* centra y separa del título */
-    background: url('/css/logo.png') no-repeat center center;
-    background-size: contain;   /* mantiene proporción */
+    background: url('/css/logo.jpg') no-repeat center center;
+    background-size: cover;   /* mantiene proporción */
 }
 
 
