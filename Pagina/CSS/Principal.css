@@ -9,7 +9,8 @@
 /* ================== BODY ================== */
 body {
     min-height: 100vh;
-    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    background: linear-gradient(rgba(30,58,138,0.7), rgba(37,99,235,0.7)),
+    url('/css/fondo-login.jpg') no-repeat center center fixed;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
