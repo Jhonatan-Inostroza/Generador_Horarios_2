@@ -43,16 +43,14 @@ body {
 
 /* Logo */
 .login-logo {
-    width: 100%;
-    text-align: center;       /* centra la imagen */
-    margin-bottom: 20px;
+    height: 80px;               /* altura de referencia */
+    width: auto;                /* el ancho se ajusta automáticamente */
+    max-width: 120px;           /* opcional: no crezca demasiado */
+    margin: 0 auto 20px;        /* centra y separa del título */
+    background: url('/css/logo.png') no-repeat center center;
+    background-size: contain;   /* mantiene proporción */
 }
 
-.login-logo img {
-    height: 80px;             /* altura de referencia */
-    width: auto;              /* ancho ajusta automáticamente según la altura */
-    max-width: 120px;         /* opcional: que no crezca demasiado */
-}
 
 
 
