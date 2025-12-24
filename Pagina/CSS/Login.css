@@ -44,9 +44,13 @@ body {
 /* Logo */
 .login-logo {
     width: 120px;
-    height: auto;
-    margin-bottom: 20px;
+    height: 120px; /* tamaño fijo o proporcional */
+    margin: 0 auto 20px auto;
+    background: url('/css/logo.png') no-repeat center center;
+    background-size: contain; /* mantiene proporción */
+    border-radius: 50%; /* opcional, si quieres circular */
 }
+
 
 /* Título */
 .login-container h1 {
