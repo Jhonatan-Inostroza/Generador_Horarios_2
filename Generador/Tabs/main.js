@@ -49,4 +49,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             contentExcel.dataset.loaded = 'true';
         }
     };
+
+    tabDb.click();
 });

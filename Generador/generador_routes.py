@@ -1,5 +1,6 @@
 import os
 from flask import Blueprint, send_file
+from flask import send_from_directory
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -16,6 +17,15 @@ generador_bp = Blueprint("generador_bp", __name__)
 @generador_bp.route("/generador")
 def generador_html():
     return send_file(os.path.join(TABS_DIR, "Generador.html"))
+
+@generador_bp.route("/descargar-excel")
+def descargar_excel():
+    return send_from_directory(
+        directory=TABS_DIR,
+        path="Excel_Ejemplo.xlsx",
+        as_attachment=True,
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
 
 # ==========================
 # ModalHorario

@@ -1,78 +1,70 @@
-<!-- db.html -->
+<div id="db-container" class="space-y-10">
 
-<div id="db-container" class="space-y-6">
+  <!-- ===================== PASO 1 ===================== -->
+  <div class="bg-white rounded-2xl shadow p-6 border">
 
-    <!-- AÑO ACADÉMICO -->
-    <div>
-        <label class="label">Año Académico</label>
-        <select id="select-anio" class="db-select">
+    <h3 class="flex items-center gap-3 text-lg font-bold text-indigo-700 mb-6">
+      <i class="fa-solid fa-calendar-check"></i>
+      Paso 1 · Periodo Académico
+    </h3>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <!-- AÑO -->
+      <div>
+        <label class="block text-sm font-semibold mb-1">
+          Año Académico
+        </label>
+        <select title="anio" id="select-anio" class="select-modern">
             <option value="">Seleccione año académico</option>
         </select>
+      </div>
+
+      <!-- CICLO -->
+      <div>
+        <label class="block text-sm font-semibold mb-1">
+          Ciclo Académico
+        </label>
+        <select title="ciclo" id="select-anio-ciclo" class="select-modern" disabled>
+        </select>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== PASO 2 ===================== -->
+  <div class="bg-white rounded-2xl shadow p-6 border">
+
+    <h3 class="flex items-center gap-3 text-lg font-bold text-indigo-700 mb-6">
+      <i class="fa-solid fa-graduation-cap"></i>
+      Paso 2 · Carreras Universitarias
+    </h3>
+
+    <div id="carreras-container"
+      class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
     </div>
 
-    <!-- CICLO ACADÉMICO -->
-    <div>
-        <label class="label">Ciclo Académico</label>
-        <select id="select-anio-ciclo" class="select" disabled></select>
-    </div>
+  </div>
 
-    <!-- CARRERAS -->
-    <div>
-        <h3 class="title">Carreras Universitarias</h3>
-        <div id="carreras-container" class="grid grid-cols-2 gap-4"></div>
-    </div>
+  <!-- ===================== PASO 3 ===================== -->
+  <div class="bg-white rounded-2xl shadow p-6 border">
 
-    <!-- CICLOS + ASIGNATURAS -->
-    <div>
-        <h3 class="title">Ciclos Curriculares</h3>
-        <div id="ciclos-container" class="space-y-4"></div>
-    </div>
+    <h3 class="flex items-center gap-3 text-lg font-bold text-indigo-700 mb-6">
+      <i class="fa-solid fa-layer-group"></i>
+      Paso 3 · Ciclos y Asignaturas
+    </h3>
 
-    <!-- GENERAR -->
-    <button id="btn-generate-db" class="btn-success hidden">
-        Generar Horarios
+    <div id="ciclos-container" class="space-y-4"></div>
+
+  </div>
+
+  <!-- ===================== ACCIÓN ===================== -->
+  <div class="flex justify-center pt-6">
+    <button id="btn-generate-db"
+      class="hidden flex items-center gap-3 px-10 py-4 bg-indigo-600 text-white font-bold rounded-xl shadow-lg hover:bg-indigo-700 transition">
+      <i class="fa-solid fa-gears"></i>
+      Generar Horarios
     </button>
+  </div>
 
 </div>
-
-<!-- ===================================================== -->
-<!-- MODAL DE VISUALIZACIÓN DE HORARIOS -->
-<!-- ===================================================== -->
-<div id="schedule-modal" class="modal hidden">
-
-    <div class="modal-content">
-
-        <!-- HEADER -->
-        <div class="modal-header">
-            <h2 id="schedule-title">Horario</h2>
-
-            <div class="modal-actions">
-                <button id="btn-print-schedules" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                    Imprimir seleccionados
-                </button>
-
-                <button id="close-modal" class="btn-close">✕</button>
-            </div>
-        </div>
-
-        <!-- CONTROLES -->
-        <div class="modal-controls">
-            <button id="prev-schedule" class="btn-nav">◀</button>
-            <button id="next-schedule" class="btn-nav">▶</button>
-        </div>
-
-        <!-- CUERPO PRINCIPAL -->
-        <div class="modal-body">
-
-            <!-- GRID -->
-            <div id="schedule-grid"></div>
-
-            <!-- LEYENDA -->
-            <div id="legend-box"></div>
-
-        </div>
-
-    </div>
-</div>
-
-<link rel="stylesheet" href="/generador/UsandoBBDD/stylesDB.css">
