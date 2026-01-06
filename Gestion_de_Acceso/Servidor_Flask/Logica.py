@@ -1,16 +1,40 @@
-# Logica.py
-# ---------------------------
-# Servidor principal Flask
-# ---------------------------
+# # Logica.py
+# # ---------------------------
+# # Servidor principal Flask
+# # ---------------------------
 
 import os
 import sys
 
+# # ===========================
+# # DIRECTORIOS BASE (HTML / estáticos)
+# # ===========================
+# BASE_DIR = os.path.dirname(os.path.abspath(__file__))   # Gestion_de_Acceso/Servidor_Flask
+# PAGINA_DIR = os.path.dirname(BASE_DIR)                  # Gestion_de_Acceso/
+
+
+
+
+
+
+
 # ===========================
-# DIRECTORIOS BASE (HTML / estáticos)
+# DIRECTORIOS BASE (Ajuste para Vercel)
 # ===========================
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))   # Gestion_de_Acceso/Servidor_Flask
-PAGINA_DIR = os.path.dirname(BASE_DIR)                  # Gestion_de_Acceso/
+# Ruta absoluta del archivo actual
+BASE_DIR = os.path.dirname(os.path.abspath(__file__)) 
+# En Vercel, necesitamos asegurar que la raíz del repo esté en el path
+# Subimos dos niveles para llegar a la raíz (Gestion_de_Acceso -> Raíz)
+PROYECTO_ROOT = os.path.abspath(os.path.join(BASE_DIR, "..", ".."))
+
+if PROYECTO_ROOT not in sys.path:
+    sys.path.append(PROYECTO_ROOT)
+
+# Directorio donde están los HTML (Gestion_de_Acceso)
+PAGINA_DIR = os.path.abspath(os.path.join(BASE_DIR, ".."))
+
+
+
 RAIZ_DIR = os.path.dirname(PAGINA_DIR)                  # Proyecto raíz
 
 
