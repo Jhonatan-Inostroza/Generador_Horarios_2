@@ -141,3 +141,79 @@
 }
 
 .hidden { display: none !important; }
+
+
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+
+/* Tablets y Laptops pequeñas */
+@media (max-width: 1024px) {
+    .modal-box {
+        max-width: 95vw;
+        height: 95vh;
+    }
+    
+    .schedule-content-layout {
+        grid-template-columns: 1fr 280px; /* Reducimos el sidebar */
+        gap: 15px;
+    }
+}
+
+/* Celulares grandes y Tablets verticales */
+@media (max-width: 768px) {
+    .header-top-bar {
+        padding: 12px 16px;
+        flex-wrap: wrap; /* Permite que los elementos bajen si no caben */
+        gap: 10px;
+    }
+
+    .header-right {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .schedule-content-layout {
+        grid-template-columns: 1fr; /* Una sola columna */
+        grid-template-rows: auto 1fr; /* Leyenda arriba o abajo del horario */
+        overflow-y: auto;
+    }
+
+    .modal-body {
+        padding: 12px;
+        overflow-y: auto; /* Permitir scroll en todo el cuerpo */
+    }
+
+    .grid-container-card {
+        min-height: 400px; /* Asegura que el horario tenga espacio */
+        overflow-x: auto; /* Scroll horizontal para la tabla del horario */
+    }
+
+    .legend-sidebar {
+        order: 2; /* Mandamos los detalles debajo del horario */
+    }
+    
+    .btn-print span {
+        display: none; /* Ocultamos texto "Imprimir Selección" en móvil para ahorrar espacio */
+    }
+}
+
+/* Celulares pequeños */
+@media (max-width: 480px) {
+    .title-badge h2 {
+        font-size: 1rem;
+    }
+    
+    .select-chip .label-text {
+        display: none; /* Solo dejamos el check en pantallas muy pequeñas */
+    }
+    
+    .nav-info {
+        display: none; /* Ocultamos el texto largo del medio */
+    }
+    
+    .nav-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
