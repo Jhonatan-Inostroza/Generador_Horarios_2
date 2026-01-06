@@ -9,7 +9,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "Pagina/Logica/Logica.py"
+      "dest": "/acceso/Servidor_Flask/Logica.py"
     }
   ]
 }
