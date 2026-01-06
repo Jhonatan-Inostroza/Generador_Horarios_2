@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="/menu_opcion/Crear_Horario/Contenido_Tab/Tab_Excel/Tab_Excel.css">
+<section id="panel-excel-content" class="excel-main-container">
+    
+    <div class="premium-alert fade-in-up">
+        <div class="alert-icon">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </div>
+        <div class="alert-content">
+            <span class="alert-title">Guía de Importación</span>
+            <p class="alert-text">Para un resultado óptimo, usa las columnas: <strong>ASIGNATURA, GRUPO HORARIO, DOCENTE, DÍA, INICIO, FIN.</strong></p>
+        </div>
+        <button id="btn-download-template" class="btn-template-download">
+            <i class="fa-solid fa-file-download"></i>
+            Descargar Plantilla Excel
+        </button>
+    </div>
+
+    <div class="premium-card">
+        <div id="drop-zone" class="premium-drop-zone">
+            <input type="file" id="input-excel" accept=".xlsx,.xls" hidden>
+            
+            <div class="drop-zone-overlay"></div>
+            
+            <div class="drop-content">
+                <div class="icon-stack">
+                    <i class="fa-solid fa-file-excel base-icon"></i>
+                    <i class="fa-solid fa-arrow-up-from-bracket float-icon"></i>
+                </div>
+                <h3 class="main-text">Suelte o click para subir archivo</h3>
+                <p class="sub-text">Formatos soportados: .xlsx, .xls</p>
+                
+                <div id="file-badge" class="file-success-badge hidden">
+                    <div class="pulse-ring"></div>
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span id="file-name-text"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="premium-actions">
+            <button id="btn-upload-excel" disabled class="btn-premium btn-process">
+                <span class="btn-text">Procesar Datos</span>
+                <i class="fa-solid fa-microchip"></i>
+            </button>
+            
+            <button id="btn-generate-excel" class="btn-premium btn-generate hidden">
+                <span class="btn-text">Generar Combinaciones</span>
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="step-select-asignaturas-excel" class="hidden results-fade-in">
+        <div class="results-header">
+            <i class="fa-solid fa-layer-group"></i>
+            <h3>Asignaturas Detectadas</h3>
+        </div>
+        <div id="asignaturas-list-excel" class="premium-stack"></div>
+    </div>
+</section>

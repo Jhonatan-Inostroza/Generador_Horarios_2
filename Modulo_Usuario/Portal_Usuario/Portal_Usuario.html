@@ -1,0 +1,83 @@
+<!-- Portal_Usuario.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Portal de Usuario</title>
+    <link rel="stylesheet" href="/menu/CSS/Menu_Lateral.css">
+    <link rel="stylesheet" href="/usuario/CSS/Portal_Usuario.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    
+    <link rel="stylesheet" href="/menu_opcion/Crear_Horario/CSS/Crear_Horario.css">
+
+    
+    
+
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div> 
+
+        <main class="main-content">
+            <button class="floating-toggle-btn" id="master-toggle">☰</button>
+            <div id="content-area" style="transition: opacity 0.3s ease;">
+                <header class="content-header">
+                    <h1>Bienvenido al Portal Académico</h1>
+                </header>
+                
+                <section class="welcome-banner">
+                    <div class="banner-card">
+                        <h2>¡Hola de nuevo!</h2>
+                        <p>Pronto verás aquí tus noticias, afiches y avisos importantes.</p>
+                        <div class="loader-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+        </main>
+    </div>
+
+
+  
+
+<!-- INSTANCIA DEL MODAL -->
+<schedule-modal id="scheduleModal"></schedule-modal>
+
+
+
+
+    <script>
+        fetch('/menu/Menu_Lateral.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-container').innerHTML = data;
+
+                const btn = document.getElementById('master-toggle');
+                // Buscamos .sidebar que acaba de ser inyectada por el fetch
+                const sidebar = document.querySelector('.sidebar');
+                const main = document.querySelector('.main-content');
+
+                btn.addEventListener('click', () => {
+                    sidebar.classList.toggle('collapsed');
+                    main.classList.toggle('expanded');
+                });
+            });
+    </script>
+
+
+<!-- Scrip para cargar el contenido por cada boton del menu lateral -->
+    <script src="/usuario/JS/Contenido_Portal.js"></script>
+
+    <!-- Script para lo que hay dentro de Crear_Horario -->
+    <script type="module" src="/menu_opcion/Crear_Horario/JS/Crear_Horario.js"></script>
+
+
+<!-- Para el Modal -->
+    <script type="module" src="/menu_opcion/Crear_Horario/Contenido_Tab/Modal/Modal.js"></script>
+
+</body>
+</body>
+</html>

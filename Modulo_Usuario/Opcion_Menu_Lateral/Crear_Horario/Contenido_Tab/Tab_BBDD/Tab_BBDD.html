@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="/menu_opcion/Crear_Horario/Contenido_Tab/Tab_BBDD/Tab_BBDD.css">
+<div id="panel-db" class="fade-in space-y-8 py-6">
+    
+    <div class="step-card">
+        <div class="step-header">
+            <i class="fa-solid fa-calendar-check step-icon"></i>
+            <span class="step-title">Paso 1 · Periodo Académico</span>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-6">
+            <div class="input-container">
+                <label class="input-label">Año Académico</label>
+                <select id="select-anio" class="modern-select">
+                    <option selected disabled>Seleccione año</option>
+                </select>
+            </div>
+            
+            <div class="input-container">
+                <label class="input-label">Ciclo Académico</label>
+                <select id="select-anio-ciclo" class="modern-select" disabled>
+                    <option selected disabled>Seleccione ciclo</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <div class="step-header">
+            <i class="fa-solid fa-graduation-cap step-icon"></i>
+            <span class="step-title">Paso 2 · Carreras Universitarias</span>
+        </div>
+        <div id="carreras-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-6">
+            </div>
+    </div>
+
+    <div class="step-card">
+        <div class="step-header">
+            <i class="fa-solid fa-layer-group step-icon"></i>
+            <span class="step-title">Paso 3 · Ciclos y Asignaturas</span>
+        </div>
+        <div id="ciclos-container" class="px-6 space-y-4">
+            </div>
+    </div>
+
+    <div class="flex justify-center pt-10 pb-6">
+    <button id="btn-generate-db" class="hidden">
+        <i class="fa-solid fa-gears"></i>
+        Generar Horarios
+    </button>
+</div>
+</div>
