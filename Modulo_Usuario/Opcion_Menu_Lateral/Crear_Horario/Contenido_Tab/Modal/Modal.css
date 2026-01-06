@@ -217,3 +217,24 @@
         justify-content: space-between;
     }
 }
+
+.btn-nav-arrow {
+    background: #f1f5f9; /* Fondo suave */
+    border: 1px solid #e2e8f0;
+    color: #6366f1; /* Color de tu marca */
+    width: 45px;
+    height: 45px;
+    border-radius: 50%; /* Botón circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    font-size: 1.1rem; /* Ajusta el tamaño del icono aquí */
+}
+
+.btn-nav-arrow:hover {
+    background: #6366f1;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
