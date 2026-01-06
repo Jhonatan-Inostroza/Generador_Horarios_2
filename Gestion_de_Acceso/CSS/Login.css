@@ -33,7 +33,7 @@ body { background: var(--bg-dark); height: 100vh; overflow: hidden; color: white
 
 .inner-logo { 
     width: 100%; height: 100%; border-radius: 50%; border: 5px solid #010409;
-    background: url('/acceso/CSS/logo.jpg') center/cover;
+    background: url('logo.jpg') center/cover;
 }
 
 .brand-title { font-size: 3rem; font-weight: 900; }
