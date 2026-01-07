@@ -1,0 +1,121 @@
+:root {
+    --primary: #6366f1;
+    --neon: #00f2ff;
+    --dark: #020617;
+    --card-bg: #0b1120;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+body { background: var(--dark); color: white; height: 100vh; overflow: hidden; }
+
+.split-screen-wrapper { display: flex; width: 100%; height: 100vh; }
+
+/* --- LADO IZQUIERDO (ESCRITORIO) --- */
+.visual-side {
+    flex: 1.2; position: relative; display: flex; align-items: center; justify-content: center;
+    background: #010409; overflow: hidden;
+}
+
+.circuit-layer { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+
+.main-portal-sphere {
+    width: 280px; height: 280px; border-radius: 50%; padding: 8px;
+    background: linear-gradient(135deg, var(--primary), var(--neon));
+    box-shadow: 0 0 100px rgba(0, 242, 255, 0.3); margin: 0 auto 30px;
+}
+
+.inner-logo { 
+    width: 100%; height: 100%; border-radius: 50%; border: 6px solid var(--dark);
+    background: url('logo.jpg') center/cover;
+}
+
+.brand-title { font-size: 3.5rem; font-weight: 900; }
+.brand-title span { color: var(--neon); text-shadow: 0 0 30px var(--neon); }
+
+/* --- LADO DERECHO (FORMULARIO) --- */
+.form-side {
+    flex: 0.8; display: flex; align-items: center; justify-content: center;
+    background: #020617; padding: 40px;
+}
+
+/* ELIMINAR TEXTO EN ESCRITORIO */
+.mobile-portal-trigger { 
+    display: none !important; 
+}
+
+/* BORDE NEON ELÉCTRICO */
+.neon-card-border {
+    position: relative; padding: 2px; border-radius: 35px;
+    background: rgba(255,255,255,0.05); overflow: hidden;
+}
+
+.neon-card-border::before {
+    content: ''; position: absolute; width: 200%; height: 200%; top: -50%; left: -50%;
+    background: conic-gradient(transparent, var(--neon), transparent 30%);
+    animation: rotateNeon 4s linear infinite;
+}
+
+@keyframes rotateNeon {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.register-card {
+    position: relative; z-index: 1; width: 100%; max-width: 420px;
+    padding: 50px 40px; background: var(--card-bg);
+    border-radius: 33px; box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+}
+
+.card-header h1 { font-size: 2.2rem; margin-bottom: 8px; }
+.card-header p { color: #64748b; margin-bottom: 35px; }
+
+.input-field { position: relative; margin-bottom: 20px; }
+.input-field i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--neon); font-size: 1.1rem; }
+.input-field input {
+    width: 100%; padding: 18px 20px 18px 55px; background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; color: white;
+    transition: 0.3s;
+}
+
+.btn-submit {
+    width: 100%; padding: 18px; background: var(--primary);
+    color: white; border: none; border-radius: 15px; font-weight: 900;
+    cursor: pointer; margin-top: 15px; transition: 0.4s;
+}
+
+.btn-submit:hover { 
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.6); 
+    transform: translateY(-2px);
+}
+
+.card-footer { text-align: center; margin-top: 30px; }
+.card-footer a { color: var(--neon); text-decoration: none; font-size: 0.9rem; }
+
+/* --- RESPONSIVE MÓVIL (ESTRICTO) --- */
+@media (max-width: 1024px) {
+    .visual-side { display: none; }
+    .form-side { flex: 1; padding: 20px; }
+    
+    /* Mostrar disparador solo en móvil */
+    .mobile-portal-trigger { 
+        display: flex !important; flex-direction: column; align-items: center; 
+    }
+    
+    .portal-logo-mobile {
+        width: 180px; height: 180px; border-radius: 50%;
+        border: 4px solid var(--neon); background: url('logo.jpg') center/cover;
+        box-shadow: 0 0 40px var(--neon);
+    }
+    
+    .tap-hint { margin-top: 20px; color: var(--neon); font-weight: 600; text-transform: uppercase; }
+
+    .overlay-container {
+        position: fixed; inset: 0; background: var(--dark);
+        display: flex; align-items: center; justify-content: center;
+        opacity: 0; pointer-events: none; transition: 0.5s; z-index: 100;
+        padding: 20px;
+    }
+    
+    .overlay-container.active { opacity: 1; pointer-events: auto; }
+    .mobile-portal-trigger.hidden { display: none; }
+}

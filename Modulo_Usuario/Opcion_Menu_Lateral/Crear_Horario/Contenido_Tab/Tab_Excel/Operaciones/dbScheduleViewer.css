@@ -1,0 +1,73 @@
+/* dbScheduleViewer.css */
+.schedule-table {
+    display: grid;
+    grid-template-columns: 80px repeat(6, minmax(120px, 1fr));
+    background: #cbd5e1;
+    gap: 1px;
+    border: 1px solid #cbd5e1;
+    flex: 1;
+}
+
+/* Panel de Leyenda lateral */
+.legend-panel {
+    width: 300px;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+}
+
+.legend-title {
+    margin: 0 0 15px 0;
+    font-size: 1.1rem;
+    color: #1e293b;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 10px;
+}
+
+.legend-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.legend-marker {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.legend-content h4 {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #0f172a;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.legend-content p {
+    margin: 2px 0 0 0;
+    font-size: 0.8rem;
+    color: #475569;
+}
+
+.legend-content .teacher-name {
+    color: #64748b;
+    font-size: 0.75rem;
+    margin-top: 4px;
+}
+
+/* Estilos de celdas y boxes */
+.header-day, .hour { background: #f8fafc; padding: 10px; text-align: center; font-weight: bold; font-size: 0.75rem; }
+.cell { background: white; min-height: 65px; position: relative; }
+.course-box {
+    position: absolute; inset: 2px; padding: 4px; border-radius: 4px;
+    color: white; font-size: 0.7rem; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+}

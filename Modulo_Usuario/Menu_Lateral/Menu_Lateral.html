@@ -1,0 +1,62 @@
+<button class="sidebar-toggle" id="menuBtn">
+    <i class="fa-solid fa-bars-staggered"></i>
+</button>
+
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="header-glow"></div>
+        <h2 class="menu-title">CIVICNET <span>CORE</span></h2>
+    </div>
+
+    <nav class="sidebar-nav">
+        <div class="nav-label">Sistemas</div>
+        
+        <a href="javascript:void(0)" onclick="cargarPagina('/menu_opcion/Crear_Horario/Crear_Horario.html')" class="nav-item">
+            <div class="nav-icon-wrapper"><i class="fa-solid fa-calendar-days"></i></div>
+            <span>Mis Horarios</span>
+            <div class="active-indicator"></div>
+        </a>
+        
+        <a href="javascript:void(0)" onclick="cargarPagina('/menu_opcion/Notas/Mis_Notas.html')" class="nav-item">
+            <div class="nav-icon-wrapper"><i class="fa-solid fa-file-pen"></i></div>
+            <span>Mis Notas</span>
+            <div class="active-indicator"></div>
+        </a>
+
+        <a href="javascript:void(0)" onclick="cargarPagina('/perfil/datos_personales.html')" class="nav-item">
+            <div class="nav-icon-wrapper"><i class="fa-solid fa-user-gear"></i></div>
+            <span>Mi Perfil</span>
+            <div class="active-indicator"></div>
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a href="/logout" class="logout-btn">
+            <i class="fa-solid fa-power-off"></i> <span>Cerrar Sesión</span>
+        </a>
+
+        <div class="footer-credits">
+            <div class="credits-row">
+                <span class="credit-item"><strong>J. Inostroza</strong> <small>Creator</small></span>
+                <span class="credit-separator">•</span>
+                <span class="credit-item"><strong>F. Campoverde</strong> <small>Colab.</small></span>
+            </div>
+            <div class="legal-row">
+                <p>© 2026 SISTEMA ACADÉMICO</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+
+    menuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        const icon = menuBtn.querySelector('i');
+        // Cambia el icono dinámicamente
+        icon.classList.toggle('fa-bars-staggered');
+        icon.classList.toggle('fa-xmark');
+    });
+</script>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Civicnet CORE | Registro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/acceso/CSS/Registrar_Usuario.css">
+</head>
+<body>
+
+    <div class="split-screen-wrapper">
+        <div class="visual-side">
+            <div class="animated-bg"></div>
+            
+            <div class="circuit-layer">
+                <svg viewBox="0 0 500 500" preserveAspectRatio="xMidYMid slice">
+                    <defs>
+                        <filter id="electricGlow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="5" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                        
+                        <radialGradient id="plasmaBall">
+                            <stop offset="0%" stop-color="#00f2ff" />
+                            <stop offset="100%" stop-color="transparent" />
+                        </radialGradient>
+                    </defs>
+
+                    <g stroke="#6366f1" stroke-width="1" fill="none" opacity="0.15">
+                        <path d="M250,250 L100,100 L20,100" />
+                        <path d="M250,250 L400,400 L480,400" />
+                        <path d="M250,250 L380,120 L450,80" />
+                        <path d="M250,250 L120,380 L50,450" />
+                    </g>
+
+                    <g filter="url(#electricGlow)">
+                        <circle r="7" fill="url(#plasmaBall)">
+                            <animateMotion dur="1.2s" repeatCount="indefinite" path="M250,250 L100,100 L20,100" />
+                        </circle>
+                        <circle r="7" fill="url(#plasmaBall)">
+                            <animateMotion dur="2s" repeatCount="indefinite" path="M250,250 L400,400 L480,400" />
+                        </circle>
+                        <circle r="7" fill="url(#plasmaBall)">
+                            <animateMotion dur="1.5s" repeatCount="indefinite" path="M250,250 L380,120 L450,80" />
+                        </circle>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="visual-content">
+                <div class="main-portal-sphere">
+                    <div class="inner-logo"></div>
+                </div>
+                <h2 class="brand-title">CIVICNET <span>CORE</span></h2>
+                <p class="brand-tagline">Sincronización de Nuevo Nodo</p>
+            </div>
+        </div>
+
+        <div class="form-side">
+            <div class="mobile-portal-trigger" id="portalTrigger">
+                <div class="portal-logo-mobile"></div>
+                <p class="tap-hint">Toca para Iniciar Registro</p>
+            </div>
+
+            <div class="overlay-container" id="overlay">
+                <div class="neon-card-border">
+                    <div class="register-card" id="registerCard">
+                        <div class="card-header">
+                            <h1>Crear Cuenta</h1>
+                            <p>Inicia tu integración al sistema</p>
+                        </div>
+
+                        <form method="POST" action="/registro">
+                            <input type="hidden" name="rol" id="rol_input">
+                            
+                            <div class="input-field">
+                                <i class="fa-solid fa-user-gear"></i>
+                                <input type="text" name="usuario" placeholder="Usuario" required>
+                            </div>
+
+                            <div class="input-field">
+                                <i class="fa-solid fa-lock"></i>
+                                <input type="password" name="password" placeholder="Contraseña" required>
+                            </div>
+
+                            <div class="input-field">
+                                <i class="fa-solid fa-shield-check"></i>
+                                <input type="password" name="confirmar" placeholder="Confirmar Contraseña" required>
+                            </div>
+
+                            <button type="submit" class="btn-submit">
+                                REGISTRARSE <i class="fa-solid fa-rocket"></i>
+                            </button>
+                        </form>
+
+                        <div class="card-footer">
+                            <a href="/">¿Ya eres parte? Inicia Sesión</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const trigger = document.getElementById('portalTrigger');
+        const overlay = document.getElementById('overlay');
+
+        // Solo funciona en móvil
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            overlay.classList.add('active');
+            trigger.classList.add('hidden');
+        });
+
+        // Volver al estado inicial si se toca fuera (solo en móvil)
+        overlay.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1024 && e.target === overlay) {
+                overlay.classList.remove('active');
+                trigger.classList.remove('hidden');
+            }
+        });
+
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById('rol_input').value = params.get('rol');
+    </script>
+</body>
+</html>

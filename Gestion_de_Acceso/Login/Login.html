@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Civicnet Core | Acceso Inteligente</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/acceso/CSS/Login.css">
+</head>
+<body>
+
+    <div class="split-screen-wrapper">
+        <div class="visual-side">
+            <div class="animated-bg"></div>
+            
+            <div class="circuit-layer">
+                <svg viewBox="0 0 500 500" preserveAspectRatio="xMidYMid slice">
+                    <defs>
+                        <filter id="electricGlow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="5" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                        <radialGradient id="plasmaBall">
+                            <stop offset="0%" stop-color="#00f2ff" />
+                            <stop offset="100%" stop-color="transparent" />
+                        </radialGradient>
+                    </defs>
+
+                    <g stroke="#6366f1" stroke-width="2" fill="none" opacity="0.3">
+                        <path id="house1" d="M250,150 L100,250 L100,400 L250,400" />
+                        <path id="house2" d="M250,150 L400,250 L400,400 L250,400" />
+                        <path id="house3" d="M210,400 L210,320 L290,320 L290,400" />
+                    </g>
+
+                    <g filter="url(#electricGlow)">
+                        <circle r="7" fill="url(#plasmaBall)">
+                            <animateMotion dur="2s" repeatCount="indefinite" path="M250,150 L100,250 L100,400 L250,400" />
+                        </circle>
+                        <circle r="7" fill="url(#plasmaBall)">
+                            <animateMotion dur="2s" repeatCount="indefinite" path="M250,150 L400,250 L400,400 L250,400" />
+                        </circle>
+                        <circle r="6" fill="url(#plasmaBall)">
+                            <animateMotion dur="1.5s" repeatCount="indefinite" path="M210,400 L210,320 L290,320 L290,400" />
+                        </circle>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="visual-content">
+                <div class="main-portal-sphere">
+                    <div class="inner-logo"></div>
+                </div>
+                <h2 class="brand-title">CIVICNET <span>CORE</span></h2>
+                <p class="brand-tagline">Generación Inteligente de Horarios</p>
+            </div>
+        </div>
+
+        <div class="form-side">
+            <div class="mobile-portal-trigger" id="portalTrigger">
+                <div class="portal-logo-main"></div>
+                <p class="tap-hint">Toca para ingresar</p>
+            </div>
+
+            <div class="login-overlay" id="loginOverlay">
+                <div class="neon-card-border">
+                    <div class="login-container">
+                        <h1>Identificación</h1>
+                        <p class="login-subtitle">Acceda al panel de control</p>
+
+                        <div id="toast" class="toast">{{ error }}</div>
+
+                        <form method="POST" action="/login" class="login-form">
+                            <input type="hidden" name="rol" id="rol_input">
+                            <div class="input-group">
+                                <i class="fa-solid fa-user"></i>
+                                <input type="text" name="usuario" placeholder="Usuario" required>
+                            </div>
+                            <div class="input-group">
+                                <i class="fa-solid fa-lock"></i>
+                                <input type="password" name="password" placeholder="Contraseña" required>
+                            </div>
+                            <button type="submit" class="btn-login">
+                                INGRESAR <i class="fa-solid fa-right-to-bracket"></i>
+                            </button>
+                        </form>
+                        
+                        <p class="login-link">
+                            <a id="crear-cuenta-link" href="/registro">Registrar nueva cuenta</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const trigger = document.getElementById('portalTrigger');
+        const overlay = document.getElementById('loginOverlay');
+
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            overlay.classList.add('active');
+            trigger.classList.add('hidden');
+        });
+
+        overlay.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1024 && e.target === overlay) {
+                overlay.classList.remove('active');
+                trigger.classList.remove('hidden');
+            }
+        });
+
+        const params = new URLSearchParams(window.location.search);
+        const rol = params.get('rol');
+        document.getElementById('rol_input').value = rol;
+        if (rol) document.getElementById("crear-cuenta-link").href = `/registro?rol=${rol}`;
+
+        const toast = document.getElementById("toast");
+        if (toast && toast.textContent.trim() !== "" && !toast.textContent.includes("{{")) {
+            toast.classList.add("show");
+            setTimeout(() => { toast.classList.remove("show"); }, 4000);
+        }
+    </script>
+</body>
+</html>

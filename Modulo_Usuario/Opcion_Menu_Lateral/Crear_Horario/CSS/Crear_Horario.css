@@ -1,0 +1,160 @@
+/* Crear_Horario.css */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+
+:root {
+    --primary: #4f46e5;
+    --primary-dark: #3730a3;
+    --bg-glass: rgba(255, 255, 255, 0.7);
+    --text-main: #1e1b4b;
+    --text-muted: #64748b;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.main-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+/* --- CONTENEDOR PRINCIPAL (Glassmorphism) --- */
+.generador-container {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    padding: 2rem;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* --- HEADER --- */
+.header-section {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.titulo-principal {
+    font-size: clamp(1.5rem, 5vw, 2.5rem); /* Tamaño fluido según pantalla */
+    font-weight: 800;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+}
+
+.subtitulo {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* --- TABS NAVEGACIÓN --- */
+.tabs-nav {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    background: rgba(0, 0, 0, 0.03);
+    padding: 0.4rem;
+    border-radius: 1rem;
+    position: relative;
+}
+
+.tab-btn {
+    position: relative;
+    background: transparent;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: var(--transition);
+    border-radius: 0.75rem;
+    flex: 1; /* Los botones crecen igual en móvil */
+    max-width: 250px;
+    justify-content: center;
+}
+
+.tab-btn:hover {
+    color: var(--primary);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.active-line {
+    display: none; /* Reemplazado por el fondo blanco del botón activo */
+}
+
+/* --- RESPONSIVIDAD (Media Queries) --- */
+
+/* Celulares pequeños */
+@media (max-width: 480px) {
+    .generador-container {
+        padding: 1.25rem;
+        border-radius: 1rem;
+    }
+
+    .tab-btn span {
+        display: none; /* Oculta texto, deja solo iconos en móviles muy pequeños */
+    }
+    
+    .tab-btn {
+        padding: 0.8rem;
+    }
+}
+
+/* Tablets y Laptops */
+@media (min-width: 768px) {
+    .tabs-nav {
+        gap: 2rem;
+        background: transparent;
+        border-bottom: 2px solid rgba(0,0,0,0.05);
+        border-radius: 0;
+        padding: 0;
+    }
+    
+    .tab-btn.active {
+        background: transparent;
+        box-shadow: none;
+    }
+    
+    .active-line {
+        display: block;
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: var(--primary);
+        border-radius: 10px;
+    }
+}
+
+/* --- UTILIDADES --- */
+.hidden { display: none; }
+
+.fade-in {
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}

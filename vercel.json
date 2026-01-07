@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "Pagina/Logica/Logica.py",
+      "src": "Gestion_de_Acceso/Servidor_Flask/Logica.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "Pagina/Logica/Logica.py"
+      "dest": "Gestion_de_Acceso/Servidor_Flask/Logica.py"
     }
   ]
 }

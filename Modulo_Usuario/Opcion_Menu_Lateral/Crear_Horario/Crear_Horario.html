@@ -1,0 +1,34 @@
+<div class="main-wrapper p-4 md:p-8">
+    <div class="generador-container fade-in">
+        
+        <header class="header-section">
+            <h1 class="titulo-principal">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>Creador de Horarios</span>
+            </h1>
+            <p class="subtitulo">Gestiona tus cursos y genera combinaciones automáticas</p>
+        </header>
+
+        <nav class="tabs-nav">
+            <button id="tab-db" onclick="seleccionarTab('db')" class="tab-btn active">
+                <i class="fa-solid fa-database"></i>
+                <span>Cursos Registrados</span>
+                <div class="active-line"></div>
+            </button>
+
+            <button id="tab-excel" onclick="seleccionarTab('excel')" class="tab-btn">
+                <i class="fa-solid fa-file-excel"></i>
+                <span>Archivo Excel</span>
+                <div class="active-line"></div>
+            </button>
+        </nav>
+
+        <main class="content-area">
+            <div id="panel-db" class="tab-panel fade-in">
+                </div>
+
+            <div id="panel-excel" class="tab-panel hidden fade-in">
+                </div>
+        </main>
+    </div>
+</div>

@@ -1,0 +1,129 @@
+/* --- PORTAL USUARIO COMPLETO --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+    background-color: #f8fafc;
+    color: #1e293b;
+    overflow-x: hidden;
+}
+
+.app-container {
+    display: flex;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 280px; /* Sincronizado con el ancho de sidebar */
+    padding: 40px;
+    transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 100vh;
+}
+
+.main-content.expanded {
+    margin-left: 0;
+}
+
+/* Botón Maestro (☰) */
+.floating-toggle-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 3000;
+    background: #0f172a;
+    color: #38bdf8; /* Color neón */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.floating-toggle-btn:hover {
+    background: #38bdf8;
+    color: white;
+    transform: scale(1.1) rotate(90deg);
+}
+
+.content-header h1 {
+    font-size: 1.875rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    margin-bottom: 24px;
+    color: #0f172a;
+}
+
+/* Banner Principal */
+.welcome-banner {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    border-radius: 24px;
+    padding: 48px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-banner::after {
+    content: "";
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.banner-card h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.banner-card p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.loader-dots span {
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 4px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* RESPONSIVIDAD TOTAL */
+@media (max-width: 1024px) {
+    .main-content {
+        margin-left: 0;
+        padding: 20px;
+        padding-top: 85px; /* Evita que el botón tape el contenido */
+    }
+}
+
+@media (max-width: 480px) {
+    .banner-card h2 {
+        font-size: 1.6rem;
+    }
+    .welcome-banner {
+        padding: 30px;
+    }
+}
