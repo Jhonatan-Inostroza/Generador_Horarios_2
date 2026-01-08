@@ -68,6 +68,9 @@ from Modulo_Usuario.Rutas_Usuario import usuario_bp
 from Modulo_Usuario.Opcion_Menu_Lateral.Crear_Horario.Contenido_Tab.Modal.Imprimir.print_horarios import (
     print_horarios_bp
 )
+from Modulo_Admin.rutas_admin import admin_bp
+from Modulo_Admin.app import admin_horarios_bp
+from Modulo_Usuario.api_academico import api_bp
 
 # ===========================
 # INICIALIZAR FLASK
@@ -77,6 +80,9 @@ app = Flask(__name__)
 # Registrar blueprints
 app.register_blueprint(usuario_bp)
 app.register_blueprint(print_horarios_bp)
+# app.register_blueprint(admin_bp)
+app.register_blueprint(admin_horarios_bp)
+app.register_blueprint(api_bp)
 
 # Clave secreta (sessions)
 app.secret_key = 'mi_llave_secreta_para_academicos'
@@ -135,6 +141,8 @@ def login():
 
             if rol_verificar == "USUARIO":
                 return redirect(url_for("usuario.portal_usuario_html"))
+            elif rol_verificar == "ADMINISTRADOR":
+                return redirect(url_for("admin_horarios.grupo_list"))
         else:
             return enviar_archivo_si_existe(HTML_LOGIN)
 
@@ -175,6 +183,8 @@ def registro_route():
 def logout():
     session.clear()
     return redirect(url_for("login"))
+
+
 
 
 # ===========================
