@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Nuevo Horario</h2>
+
+<form method="post">
+    <label>Grupo</label><br>
+    <input placeholder="Hora" name="grupo" required><br><br>
+
+    <label>Asignatura</label><br>
+    <select title="detalle_asignatura_ciclo_id" name="detalle_asignatura_ciclo_id">
+        {% for a in asignaturas %}
+        <option value="{{ a[0] }}">{{ a[1] }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Docente</label><br>
+    <select title="docente_id" name="docente_id">
+        {% for d in docentes %}
+        <option value="{{ d[0] }}">{{ d[1] }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Día</label><br>
+    <select title="dia" name="dia">
+        <option>Lunes</option>
+        <option>Martes</option>
+        <option>Miércoles</option>
+        <option>Jueves</option>
+        <option>Viernes</option>
+        <option>Sábado</option>
+    </select><br><br>
+
+    <label>Hora Inicio</label><br>
+    <input placeholder="Hora" type="time" name="hora_inicio" required><br><br>
+
+    <label>Hora Fin</label><br>
+    <input placeholder="Hora" type="time" name="hora_fin" required><br><br>
+
+    <button type="submit">Guardar</button>
+</form>
+{% endblock %}

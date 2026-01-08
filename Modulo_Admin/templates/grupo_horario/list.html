@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Horarios</h2>
+
+<a href="/grupo-horario/new">➕ Nuevo Horario</a>
+
+<table>
+    <tr>
+        <th>Grupo</th>
+        <th>Asignatura</th>
+        <th>Docente</th>
+        <th>Día</th>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Acciones</th>
+    </tr>
+    {% for r in data %}
+    <tr>
+        <td>{{ r[1] }}</td>
+        <td>{{ r[2] }}</td>
+        <td>{{ r[3] }}</td>
+        <td>{{ r[4] }}</td>
+        <td>{{ r[5] }}</td>
+        <td>{{ r[6] }}</td>
+        <td>
+            <a href="/grupo-horario/delete/{{ r[0] }}"
+               onclick="return confirm('¿Eliminar horario?')">🗑</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
