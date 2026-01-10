@@ -18,7 +18,7 @@ node_modules/
 
 # Archivos generados
 *.pdf
-*.xlsx
+# *.xlsx
 *.zip
 
 # SQLite local
