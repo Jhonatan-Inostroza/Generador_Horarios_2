@@ -1,14 +1,34 @@
 /**
  * Perfil.js - Orquestador Central (Cerebro Atómico)
  */
+
 import { initSecurityManager } from './SecurityManager.js';
 import { initStatusManager } from './StatusManager.js';
 import { initUIManager } from './UIManager.js';
 import { initAvatarManager, renderAvatar } from './AvatarManager.js';
 import { getNodoActivo, safeTextNodo } from './utils.js';
 
+/* ===============================
+   Normalización defensiva del nodo
+================================= */
+function normalizarNodo(nodo) {
+    if (!nodo || typeof nodo !== 'object') return null;
+
+    return {
+        ...nodo,
+        nombres: safeTextNodo(nodo.nombres),
+        apellidos: safeTextNodo(nodo.apellidos),
+        usuario: safeTextNodo(nodo.usuario, "Usuario"),
+        meta: safeTextNodo(nodo.meta),
+        disponibilidad: safeTextNodo(nodo.disponibilidad, "activo")
+    };
+}
+
+/* ===============================
+   Carga de datos en UI
+================================= */
 export function cargarDatosPerfil() {
-    const nodo = getNodoActivo();
+    const nodo = normalizarNodo(getNodoActivo());
     if (!nodo) return;
 
     const elements = {
@@ -21,17 +41,19 @@ export function cargarDatosPerfil() {
         idDisplay: document.getElementById('status-id-display')
     };
 
-    if (elements.nombre) elements.nombre.value = safeTextNodo(nodo.nombres);
-    if (elements.apellido) elements.apellido.value = safeTextNodo(nodo.apellidos);
-    if (elements.usuario) elements.usuario.value = safeTextNodo(nodo.usuario);
-    if (elements.meta) elements.meta.value = safeTextNodo(nodo.meta);
+    if (elements.nombre) elements.nombre.value = nodo.nombres;
+    if (elements.apellido) elements.apellido.value = nodo.apellidos;
+    if (elements.usuario) elements.usuario.value = nodo.usuario;
+    if (elements.meta) elements.meta.value = nodo.meta;
 
     if (elements.fullName) {
-        const full = `${safeTextNodo(nodo.nombres)} ${safeTextNodo(nodo.apellidos)}`.trim();
-        elements.fullName.textContent = full || safeTextNodo(nodo.usuario) || "Usuario";
+        const tieneNombre = nodo.nombres || nodo.apellidos;
+        elements.fullName.textContent = tieneNombre
+            ? `${nodo.nombres} ${nodo.apellidos}`.trim()
+            : nodo.usuario;
     }
 
-    if (elements.dispo) elements.dispo.value = safeTextNodo(nodo.disponibilidad, "activo");
+    if (elements.dispo) elements.dispo.value = nodo.disponibilidad;
 
     if (elements.idDisplay) {
         const numId = nodo.usuario_id || nodo.id || 0;
@@ -39,39 +61,55 @@ export function cargarDatosPerfil() {
     }
 }
 
-window.inicializarEventosPerfil = function() {
-    let nodo = getNodoActivo();
+/* ===============================
+   Inicialización general
+================================= */
+window.inicializarEventosPerfil = function () {
+    let nodo = normalizarNodo(getNodoActivo());
     if (!nodo) return;
 
     const mainBtn = document.getElementById('main-save-btn');
 
     const verificarVisibilidadBotonGeneral = () => {
         if (!mainBtn) return;
-        const hayEdicionesLocales = document.querySelector('.status-label.pending-anim') !== null;
-        const fotoPendiente = document.getElementById('upload-photo')?.dataset.pendiente === "true";
+
+        const hayEdicionesLocales =
+            document.querySelector('.status-label.pending-anim') !== null;
+
+        const fotoPendiente =
+            document.getElementById('upload-photo')?.dataset.pendiente === "true";
 
         (hayEdicionesLocales || fotoPendiente)
             ? mainBtn.classList.add('visible')
             : mainBtn.classList.remove('visible');
     };
 
-    // Inicializar todos los managers pasando el nodo fresco
+    /* Inicializar managers con nodo saneado */
     initAvatarManager(nodo);
     initSecurityManager(nodo);
     initStatusManager();
     initUIManager();
+
     cargarDatosPerfil();
 
-    window.addEventListener('perfil-cambio-detectado', verificarVisibilidadBotonGeneral);
+    window.addEventListener(
+        'perfil-cambio-detectado',
+        verificarVisibilidadBotonGeneral
+    );
 
     if (!mainBtn) return;
 
+    /* ===============================
+       Guardado de perfil
+    ================================= */
     mainBtn.onclick = async () => {
         const btnOriginalHtml = mainBtn.innerHTML;
-        mainBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sincronizando...';
+        mainBtn.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin"></i> Sincronizando...';
         mainBtn.disabled = true;
 
         const data = { id: nodo.id || nodo.usuario_id };
+
         const inputs = {
             nombre: document.getElementById('input-real-name')?.value.trim(),
             apellido: document.getElementById('input-real-surname')?.value.trim(),
@@ -81,20 +119,25 @@ window.inicializarEventosPerfil = function() {
             pass: document.getElementById('pass-nueva')?.value
         };
 
-        if (inputs.nombre !== safeTextNodo(nodo.nombres)) data.nombre = inputs.nombre;
-        if (inputs.apellido !== safeTextNodo(nodo.apellidos)) data.apellido = inputs.apellido;
-        if (inputs.usuario !== safeTextNodo(nodo.usuario)) data.nuevo_usuario = inputs.usuario;
-        if (inputs.meta !== safeTextNodo(nodo.meta)) data.meta = inputs.meta;
-        if (inputs.dispo !== safeTextNodo(nodo.disponibilidad, "activo")) data.disponibilidad = inputs.dispo;
-        if (inputs.pass && inputs.pass.length >= 8) data.password = inputs.pass;
+        if (inputs.nombre !== nodo.nombres) data.nombre = inputs.nombre;
+        if (inputs.apellido !== nodo.apellidos) data.apellido = inputs.apellido;
+        if (inputs.usuario !== nodo.usuario) data.nuevo_usuario = inputs.usuario;
+        if (inputs.meta !== nodo.meta) data.meta = inputs.meta;
+        if (inputs.dispo !== nodo.disponibilidad)
+            data.disponibilidad = inputs.dispo;
 
-        // FOTO: Captura del Base64 optimizado directamente desde el dataset
+        if (inputs.pass && inputs.pass.length >= 8)
+            data.password = inputs.pass;
+
+        /* FOTO */
         const photoInput = document.getElementById('upload-photo');
         if (photoInput?.dataset.pendiente === "true") {
-            data.foto = photoInput.dataset.base64 || document.querySelector('#profile-img-display img')?.src;
+            data.foto =
+                photoInput.dataset.base64 ||
+                document.querySelector('#profile-img-display img')?.src;
         }
 
-        // Validar si hay algo que enviar
+        /* Nada que guardar */
         if (Object.keys(data).length <= 1) {
             mainBtn.classList.remove('visible');
             mainBtn.disabled = false;
@@ -111,9 +154,13 @@ window.inicializarEventosPerfil = function() {
 
             const res = await response.json();
 
-            if (res.status === 'success') {
-                sessionStorage.setItem('nodo_activo', JSON.stringify(res.nodo));
-                nodo = res.nodo;
+            if (res.status === 'success' && res.nodo) {
+                sessionStorage.setItem(
+                    'nodo_activo',
+                    JSON.stringify(res.nodo)
+                );
+
+                nodo = normalizarNodo(res.nodo);
 
                 cargarDatosPerfil();
                 renderAvatar(nodo);
@@ -126,7 +173,8 @@ window.inicializarEventosPerfil = function() {
 
                 if (photoInput) photoInput.dataset.pendiente = "false";
 
-                mainBtn.innerHTML = '<i class="fa-solid fa-check"></i> Sincronizado';
+                mainBtn.innerHTML =
+                    '<i class="fa-solid fa-check"></i> Sincronizado';
                 mainBtn.style.background = "var(--success-green)";
 
                 setTimeout(() => {
@@ -136,10 +184,13 @@ window.inicializarEventosPerfil = function() {
                     mainBtn.disabled = false;
                 }, 2000);
 
-                window.dispatchEvent(new CustomEvent('meta-global-update'));
+                window.dispatchEvent(
+                    new CustomEvent('meta-global-update')
+                );
             }
         } catch (err) {
-            mainBtn.innerHTML = '<i class="fa-solid fa-x"></i> Error';
+            mainBtn.innerHTML =
+                '<i class="fa-solid fa-x"></i> Error';
             mainBtn.style.background = "var(--error-red)";
             setTimeout(() => {
                 mainBtn.disabled = false;

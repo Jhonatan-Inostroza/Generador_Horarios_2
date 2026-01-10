@@ -1,3 +1,4 @@
+// C:\Users\Jhonatan Inostroza\Desktop\Proyectos\Generar_Horarios\Modulo_Usuario\Opcion_Menu_Lateral\Info_Usuario\JS\UIManager.js
 import { safeTextNodo } from './utils.js';
 
 export function initUIManager() {
