@@ -1,0 +1,346 @@
+/* =========================================
+   Variables y Estilos Base
+   ========================================= */
+:root {
+    --prm-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    --prm-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --border-color: #f1f5f9;
+}
+
+.excel-main-container {
+    padding: 40px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* =========================================
+   Banner de Guía (Glassmorphism)
+   ========================================= */
+.premium-alert {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    border-radius: 18px;
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 35px;
+    box-shadow: var(--prm-shadow);
+}
+
+.alert-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--prm-gradient);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+/* =========================================
+   Card de Carga y DropZone
+   ========================================= */
+.premium-card {
+    background: white;
+    border-radius: 24px;
+    padding: 40px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.03);
+    margin-bottom: 30px;
+}
+
+.premium-drop-zone {
+    border: 2px dashed #e2e8f0;
+    background: #fdfdff;
+    border-radius: 20px;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.premium-drop-zone:hover {
+    border-color: #6366f1;
+    background: #f8faff;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(99, 102, 241, 0.08);
+}
+
+.icon-stack { font-size: 3rem; margin-bottom: 10px; position: relative; }
+.base-icon { color: #e2e8f0; }
+.float-icon {
+    position: absolute; top: 0; left: 0; color: #6366f1;
+    opacity: 0; transition: 0.3s;
+}
+.premium-drop-zone:hover .float-icon { 
+    opacity: 1; 
+    animation: float 2.5s ease-in-out infinite; 
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* =========================================
+   Lista de Asignaturas (Toda la fila Clickable)
+   ========================================= */
+.asignatura-wrapper {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.premium-clickable {
+    cursor: pointer;
+    user-select: none;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.premium-clickable:hover { 
+    background: #f8faff; 
+}
+
+/* Estado de Selección */
+.asignatura-wrapper.is-selected {
+    border-color: #6366f1;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.1);
+}
+
+.is-selected .asig-name {
+    color: #4f46e5;
+    font-weight: 700;
+}
+
+.asig-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.asig-icon {
+    color: #cbd5e1;
+    font-size: 1.1rem;
+}
+
+.is-selected .asig-icon {
+    color: #6366f1;
+}
+
+/* Controles (Badge, Check, Flecha) */
+.asig-controls {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.group-count-badge {
+    font-size: 0.75rem;
+    background: #f1f5f9;
+    color: #64748b;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.custom-checkbox {
+    pointer-events: none; /* El clic lo captura la fila completa */
+}
+
+.course-check {
+    width: 18px;
+    height: 18px;
+    accent-color: #6366f1;
+}
+
+.toggle-arrow {
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =========================================
+   Grid de Grupos Desplegable
+   ========================================= */
+.grupos-grid {
+    background-color: #f8fafc;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    border-top: 1px solid #edf2f7;
+    animation: slideDown 0.3s ease-out;
+}
+
+.premium-group-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.premium-group-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.05);
+    border-color: #6366f1;
+}
+
+.group-tag {
+    background: #eef2ff;
+    color: #4f46e5;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 8px;
+    text-transform: uppercase;
+}
+
+.teacher-name {
+    color: #1e293b;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.schedule-tags .tag {
+    background: #f8fafc;
+    color: #475569;
+    font-size: 0.75rem;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 2px;
+}
+
+/* =========================================
+   Botones Finales
+   ========================================= */
+.premium-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.btn-premium {
+    padding: 14px 30px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-process { background: #0f172a; color: white; }
+.btn-process:hover:not(:disabled) { background: #1e293b; }
+
+.btn-generate {
+    background: var(--prm-gradient);
+    color: white;
+    box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+    font-weight: 700;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-generate:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 15px 30px rgba(79, 70, 229, 0.4);
+}
+
+/* =========================================
+   Utilidades y Animaciones
+   ========================================= */
+.hidden { display: none !important; }
+
+.fade-in-up {
+    animation: fadeInUp 0.5s ease backwards;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Cursor y estado hover para las tarjetas de grupo */
+.premium-group-card {
+    cursor: pointer; /* Cambia a manito */
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+/* Estado cuando el grupo está seleccionado manualmente */
+.premium-group-card.group-selected {
+    border-color: #6366f1;
+    background-color: #f5f7ff;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Indicador visual dentro de la tarjeta seleccionada (opcional) */
+.premium-group-card.group-selected .group-tag {
+    background: #4f46e5;
+    color: white;
+}
+
+.btn-template-download {
+    margin-left: auto;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e2e8f0;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #4f46e5;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-template-download:hover {
+    background: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+    border-color: #4f46e5;
+}
+
+/* Ajuste responsivo para el banner */
+@media (max-width: 600px) {
+    .premium-alert { flex-direction: column; gap: 15px; }
+    .btn-template-download { width: 100%; justify-content: center; }
+}

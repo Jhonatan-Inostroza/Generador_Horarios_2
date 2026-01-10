@@ -1,0 +1,121 @@
+/* Tarjetas de Pasos */
+.step-card {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    transition: all 0.3s ease;
+}
+
+.step-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    color: #4338ca;
+}
+
+.step-icon {
+    font-size: 1.25rem;
+}
+
+.step-title {
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+}
+
+/* Selectores Modernos */
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    text-align: center;
+}
+
+.modern-select {
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+    border-radius: 1rem;
+    border: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+    color: #1e293b;
+    font-weight: 500;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236366f1'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m19 9-7 7-7-7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1rem;
+    transition: all 0.2s;
+}
+
+.modern-select:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    background-color: white;
+}
+
+.modern-select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Estilo para Career Cards (cuando el JS las cree) */
+.career-card.selected {
+    border-color: #6366f1 !important;
+    background-color: #f5f3ff !important;
+    /* ring: 2px solid #6366f1; */
+}
+
+
+/* Botón de Generación Estilo Moderno */
+#btn-generate-db {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 40px;
+    /* Degradado Indigo a Violeta */
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    color: white;
+    font-weight: 800;
+    font-size: 1.1rem;
+    border-radius: 1.25rem; /* Muy redondeado */
+    border: none;
+    cursor: pointer;
+    /* Sombra profunda y suave */
+    box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 2rem;
+}
+
+/* Efecto al pasar el mouse */
+#btn-generate-db:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 20px 30px -10px rgba(79, 70, 229, 0.6);
+    filter: brightness(1.1);
+}
+
+/* Efecto al hacer clic */
+#btn-generate-db:active {
+    transform: translateY(1px);
+}
+
+/* Estilo del icono dentro del botón */
+#btn-generate-db i {
+    font-size: 1.2rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+/* Clase para ocultar/mostrar que usa tu JS */
+.hidden {
+    display: none !important;
+}

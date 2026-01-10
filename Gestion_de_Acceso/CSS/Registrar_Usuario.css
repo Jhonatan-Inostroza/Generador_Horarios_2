@@ -1,0 +1,159 @@
+:root {
+    --primary: #6366f1;
+    --neon: #00f2ff;
+    --accent: #a855f7;
+    --dark: #020617;
+    --card-bg: #0b1120;
+    --error: #ff4444;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+body { 
+    background: var(--dark); 
+    color: white; 
+    height: 100vh; 
+    overflow: hidden; 
+}
+
+/* --- ESCÁNER --- */
+.scan-line {
+    position: fixed; top: 0; left: 0; width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon), transparent);
+    z-index: 100; animation: scan 3s linear infinite; opacity: 0.2;
+}
+@keyframes scan { 0% { top: -5%; } 100% { top: 105%; } }
+
+.split-screen-wrapper { display: flex; width: 100%; height: 100vh; }
+
+/* --- LADO VISUAL --- */
+.visual-side {
+    flex: 1.2; position: relative; display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle at center, #0f172a 0%, #020617 100%); overflow: hidden;
+}
+
+.glow-sphere {
+    position: absolute; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(0, 242, 255, 0.1), transparent 70%);
+    filter: blur(60px); animation: pulse 4s infinite alternate;
+}
+
+.sparks-container { position: absolute; inset: 0; pointer-events: none; }
+.spark {
+    position: absolute; width: 2px; height: 2px; background: var(--neon);
+    border-radius: 50%; box-shadow: 0 0 8px var(--neon);
+    animation: sparkFly linear forwards;
+}
+
+@keyframes sparkFly {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--xMove), -150px) scale(0); opacity: 0; }
+}
+
+.main-portal-sphere { position: relative; width: 280px; height: 280px; margin: 0 auto 30px; }
+.inner-logo { 
+    width: 100%; height: 100%; border-radius: 50%; border: 6px solid var(--dark);
+    background: url('logo.jpg') center/cover; box-shadow: 0 0 40px rgba(0, 242, 255, 0.3);
+}
+
+.portal-rings span {
+    position: absolute; border: 1px solid var(--neon); border-radius: 50%;
+    inset: -15px; animation: orbit 8s linear infinite; opacity: 0.2;
+}
+.portal-rings span:nth-child(2) { inset: -35px; border-color: var(--primary); animation-duration: 12s; }
+
+.brand-title { font-size: 3.5rem; font-weight: 800; text-align: center; }
+.brand-title span { color: var(--neon); text-shadow: 0 0 20px var(--neon); }
+
+.status-indicator { display: flex; align-items: center; gap: 10px; justify-content: center; margin-top: 15px; opacity: 0.6; font-size: 0.8rem; letter-spacing: 2px; }
+.dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 10px #22c55e; }
+
+/* --- LADO FORMULARIO --- */
+.form-side { flex: 0.8; display: flex; align-items: center; justify-content: center; background: #020617; padding: 40px; }
+
+/* Ocultar disparador móvil en PC */
+.mobile-portal-trigger { display: none; cursor: pointer; }
+
+/* Overlay dinámico: Activo en PC, con portal en móvil */
+.overlay-container {
+    width: 100%; display: flex; align-items: center; justify-content: center;
+}
+
+@media (min-width: 1025px) {
+    .overlay-container { opacity: 1; pointer-events: auto; }
+}
+
+.neon-border-box {
+    position: relative; width: 100%; max-width: 420px;
+    padding: 3px; border-radius: 35px; overflow: hidden;
+}
+
+.neon-border-box::before {
+    content: ''; position: absolute; width: 150%; height: 150%;
+    top: -25%; left: -25%;
+    background: conic-gradient(transparent, var(--neon), transparent 30%, var(--primary), transparent);
+    animation: rotateBorde 4s linear infinite;
+}
+
+@keyframes rotateBorde { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.register-card {
+    position: relative; z-index: 10; background: var(--card-bg);
+    padding: 50px 40px; border-radius: 32px; width: 100%;
+}
+
+.card-header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 5px; }
+.card-header p { color: #64748b; margin-bottom: 30px; font-size: 0.9rem; }
+
+/* --- INPUTS --- */
+.input-field {
+    background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; margin-bottom: 18px; display: flex; align-items: center;
+    padding: 0 20px; transition: 0.3s;
+}
+.input-field:focus-within { border-color: var(--neon); box-shadow: 0 0 15px rgba(0, 242, 255, 0.1); }
+.input-field input {
+    background: transparent; border: none; color: white; padding: 18px 10px;
+    width: 100%; outline: none; font-size: 1rem;
+}
+.input-field i { color: var(--neon); font-size: 1.1rem; width: 30px; }
+
+.btn-submit {
+    width: 100%; padding: 20px; background: linear-gradient(90deg, var(--primary), var(--accent));
+    border: none; border-radius: 16px; color: white; font-weight: 800;
+    cursor: pointer; display: flex; justify-content: center; gap: 15px;
+    transition: 0.4s; margin-top: 10px;
+}
+.btn-submit:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4); }
+
+.card-footer { text-align: center; margin-top: 25px; }
+.card-footer a { color: var(--neon); text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+.card-footer a:hover { text-shadow: 0 0 10px var(--neon); }
+
+/* --- MÓVIL (Portal) --- */
+@media (max-width: 1024px) {
+    .visual-side { display: none; }
+    .form-side { flex: 1; padding: 20px; }
+    .mobile-portal-trigger { display: flex !important; flex-direction: column; align-items: center; }
+    .portal-logo-mobile {
+        width: 180px; height: 180px; border-radius: 50%;
+        border: 4px solid var(--neon); background: url('logo.jpg') center/cover;
+        box-shadow: 0 0 30px var(--neon);
+    }
+    .tap-hint { margin-top: 20px; color: var(--neon); letter-spacing: 2px; font-weight: 800; }
+    
+    .overlay-container {
+        position: fixed; inset: 0; background: rgba(2, 6, 23, 0.95);
+        opacity: 0; pointer-events: none; transition: 0.5s; z-index: 1000;
+    }
+    .overlay-container.active { opacity: 1; pointer-events: auto; }
+}
+
+@keyframes orbit { to { transform: rotate(360deg); } }
+@keyframes pulse { to { transform: scale(1.1); opacity: 0.2; } }
+.shake { animation: shake 0.5s both; }
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+}

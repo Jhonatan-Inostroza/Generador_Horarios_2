@@ -1,0 +1,150 @@
+/* MetaComponent.css - ESTILOS PREMIUM */
+
+.meta-edit-card {
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.4s ease;
+}
+
+.meta-edit-card:hover {
+    border-color: rgba(56, 189, 248, 0.2);
+    transform: translateY(-2px);
+}
+
+.meta-header h3 {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--text-dim);
+    letter-spacing: 1.2px;
+}
+
+.meta-header h3 i {
+    color: var(--neon-cyan);
+    font-size: 1rem;
+}
+
+/* Contenedor del Input con resplandor */
+.input-glow-wrapper {
+    position: relative;
+    margin: 15px 0;
+}
+
+.meta-input-field {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.05) !important;
+    padding: 14px 18px;
+    border-radius: 14px;
+    color: #fff !important;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Modo edición activo */
+.edit-group.editing .meta-input-field {
+    border-color: rgba(34, 211, 238, 0.3) !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.meta-input-field:focus {
+    border-color: var(--neon-cyan) !important;
+    outline: none;
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.15);
+}
+
+/* Botones Especiales */
+.mini-confirm-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0.4;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.mini-confirm-btn.active {
+    opacity: 1;
+    pointer-events: auto;
+    background: var(--success-green);
+    color: white;
+    border: none;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+.char-counter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+/* Label de estado */
+.status-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* =========================================
+   HOME VIEW - ESTILOS PREMIUM PARA INICIO
+   ========================================= */
+
+.home-meta-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(15, 23, 42, 0.3);
+    padding: 18px 25px;
+    border-radius: 18px;
+    margin: 15px 0;
+    border-left: 4px solid var(--neon-cyan);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.home-meta-container:hover {
+    background: rgba(15, 23, 42, 0.5);
+    transform: translateX(5px);
+}
+
+.meta-icon-wrapper {
+    font-size: 1.6rem;
+    color: var(--neon-cyan);
+    filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.3));
+}
+
+.meta-label-premium {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.home-meta-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #fff;
+    margin: 0;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.home-meta-empty {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+}
+
+.home-meta-empty span {
+    font-size: 0.8rem;
+    color: var(--warning-orange);
+    font-weight: 500;
+}

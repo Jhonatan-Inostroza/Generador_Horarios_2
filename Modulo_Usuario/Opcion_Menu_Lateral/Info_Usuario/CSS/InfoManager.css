@@ -1,0 +1,44 @@
+/* InfoManager.css - Estilo Premium para Identidad */
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* En móviles, uno debajo del otro */
+@media (max-width: 480px) {
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.info-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.info-field-group label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: 4px;
+}
+
+/* Estilo para los botones de acción específicos de esta sección */
+#confirm-real-name.active {
+    background: var(--success-green) !important;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+    border: none;
+    color: white;
+}
+
+/* Efecto focus sutil para indicar cuál estás editando */
+.edit-group.editing .info-grid input:focus {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-color: var(--neon-cyan) !important;
+}

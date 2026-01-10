@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civicnet Core | Elite Mobile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/acceso/CSS/Login.css">
+</head>
+<body>
+    <div class="split-screen-wrapper">
+        <div class="visual-side" id="visualSide">
+            <div class="animated-bg"></div>
+            <div class="visual-content">
+                <div class="node-container-giant" id="mobileTrigger">
+                    <div class="house-wrapper-premium">
+                        <svg viewBox="0 0 100 100" class="house-svg-giant">
+                            <path class="house-outline" d="M5 45 L50 5 L95 45 V90 H5 Z" fill="none" />
+                            <rect class="window-glow w-1" x="20" y="55" width="15" height="15" rx="2" />
+                            <rect class="window-glow w-2" x="65" y="55" width="15" height="15" rx="2" />
+                            <rect class="door-glow" x="42" y="70" width="16" height="20" rx="1" />
+                        </svg>
+                    </div>
+                    <div class="core-nucleus-giant">
+                        <div class="inner-logo-highres"></div>
+                    </div>
+                </div>
+
+                <div class="brand-info-anim">
+                    <h2 class="brand-title-elite">CIVICNET <span>CORE</span></h2>
+                    <p class="brand-tagline-elite">Sincronización perfecta ...</p>
+                    <p class="mobile-hint">Toca el logo para ingresar</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-side" id="formSide">
+            <div class="login-overlay-premium" id="loginOverlay">
+                <button class="close-mobile-form" id="closeForm" type="button">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                
+                <div class="neon-card-border-elite">
+                    <div class="login-container-elite">
+                        <div class="login-header-group">
+    <a href="/acceso/Portal_Ingreso/Principal.html" class="back-to-home">
+        <i class="fa-solid fa-chevron-left"></i> <span>Volver</span>
+    </a>
+
+    <h1 id="login-title" class="premium-text-anim">Identificación</h1>
+    
+    <div id="remembered-profile" style="display: none; text-align: center; margin-bottom: 25px;">
+        <div class="user-avatar-glow">
+            <span id="user-initial">U</span>
+        </div>
+        <p id="user-welcome-name" class="welcome-text-glow"></p>
+        <button type="button" id="change-account" class="btn-change-elite">Usar otra cuenta</button>
+    </div>
+
+    <p id="login-subtitle" class="premium-subtitle-anim">Acceda al núcleo de control</p>
+</div>
+
+                        <div id="toast" style="display: none;">
+                            <p id="toast-message"></p>
+                        </div>
+
+                        <form method="POST" action="/login" id="mainLoginForm">
+                            <input type="hidden" name="rol" id="rol_hidden">
+                            
+                            <div class="input-group-premium" id="user-input-container">
+                                <i class="fa-solid fa-user"></i>
+                                <input type="text" name="usuario" id="usuario_field" placeholder="Usuario" required autocomplete="username">
+                            </div>
+
+                            <div class="input-group-premium">
+                                <i class="fa-solid fa-lock"></i>
+                                <input type="password" name="password" id="password_field" placeholder="Contraseña" required autocomplete="current-password">
+                            </div>
+
+                            <button type="submit" class="btn-login-elite" id="btnLogin">
+                                <span id="btnText">INGRESAR</span>
+                                <i class="fa-solid fa-bolt" id="btnIcon"></i>
+                            </button>
+                        </form>
+
+                        <div class="login-footer-elite">
+                            <p>¿No tienes un nodo?</p>
+                            <a href="/registro" id="link-registro">Registrar nueva cuenta <i class="fa-solid fa-arrow-right-to-bracket"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/acceso/Login/JS/Login.js?v=1.2"></script>
+</body>
+</html>

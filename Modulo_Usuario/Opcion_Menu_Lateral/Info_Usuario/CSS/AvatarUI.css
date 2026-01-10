@@ -1,0 +1,46 @@
+/* AvatarUI.css */
+
+/* Texto de carga debajo del nombre */
+.user-role.loading-text {
+    color: var(--neon-blue) !important;
+    font-weight: 800 !important;
+    letter-spacing: 2px;
+    animation: pulseText 1.5s infinite ease-in-out;
+}
+
+@keyframes pulseText {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Botón de cámara cuando se transforma en Confirmar (Check) */
+#confirm-avatar-change.active-save {
+    background: var(--success-green) !important;
+    border-color: var(--success-green) !important;
+    color: white !important;
+    opacity: 1 !important;
+    transform: scale(1.15);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+}
+
+/* Efecto hover suave cuando está activo */
+#confirm-avatar-change.active-save:hover {
+    filter: brightness(1.1);
+    transform: scale(1.2);
+}
+
+/* Contenedor de la imagen durante la carga */
+#profile-img-display.loading-ui {
+    position: relative;
+    filter: grayscale(0.5) blur(1px);
+}
+
+#profile-img-display.loading-ui::after {
+    content: "\f110"; /* fa-spinner */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    color: white;
+    font-size: 1.5rem;
+    animation: fa-spin 1s infinite linear;
+}

@@ -1,0 +1,25 @@
+# Entornos
+venv/
+entorno/
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Notebooks
+*.ipynb
+
+# Node
+node_modules/
+
+# Git
+.git/
+
+# Archivos generados
+*.pdf
+*.xlsx
+*.zip
+
+# SQLite local
+# *.db

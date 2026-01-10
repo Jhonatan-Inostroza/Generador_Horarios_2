@@ -1,0 +1,52 @@
+/* UIManager.css - Estética de Interacción */
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 12px;
+}
+
+/* Estado Bloqueado (Readonly) */
+.neon-input[readonly], 
+.neon-input[disabled] {
+    cursor: default;
+    background: rgba(15, 23, 42, 0.4) !important; /* Un poco más oscuro */
+    border-color: rgba(255, 255, 255, 0.03) !important;
+    opacity: 0.9;
+    color: rgba(255, 255, 255, 0.5) !important; /* Texto gris claro, no tan oscuro */
+}
+
+/* Estado de Edición Activa */
+.edit-group.editing .neon-input:not([readonly]) {
+    cursor: text;
+    background: rgba(34, 211, 238, 0.05) !important;
+    border-color: var(--neon-cyan) !important;
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
+    color: #fff !important;
+}
+
+/* Botones de Control */
+.edit-controls {
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    transform: translateX(10px);
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.edit-group.editing .edit-controls {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+/* Ocultar el lápiz cuando se edita */
+.edit-group.editing .edit-trigger {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .form-row { grid-template-columns: 1fr; }
+}

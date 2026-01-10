@@ -1,0 +1,80 @@
+/* StatusManager.css - ESTILOS PREMIUM */
+
+#select-disponibilidad {
+    border-left: 5px solid transparent !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#select-disponibilidad:disabled {
+    cursor: default;
+    opacity: 0.8;
+}
+
+/* Glow dinámico por estado */
+#select-disponibilidad[data-status="activo"] {
+    border-left-color: #10b981 !important;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.1);
+}
+
+#select-disponibilidad[data-status="ausente"] {
+    border-left-color: #f59e0b !important;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.1);
+}
+
+#select-disponibilidad[data-status="invisible"] {
+    border-left-color: #94a3b8 !important;
+}
+
+#select-disponibilidad[data-status="ocupado"] {
+    border-left-color: #ef4444 !important;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.1);
+}
+
+/* Badge NODO ID Estilo Cyberpunk */
+.id-badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background: rgba(15, 23, 42, 0.4);
+    padding: 12px;
+    border-radius: 16px;
+    margin-top: 20px;
+    border: 1px solid var(--glass-border);
+}
+
+#status-id-display {
+    color: var(--neon-cyan);
+    font-family: 'Cascadia Code', 'Consolas', monospace;
+    font-size: 0.9rem;
+    text-shadow: 0 0 10px rgba(34, 211, 238, 0.3);
+}
+
+/* Títulos de sección internos */
+.mini-title {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+/* Animación de pulso mejorada */
+.pending-anim {
+    animation: pulseStatusGlow 1.5s infinite ease-in-out;
+}
+
+@keyframes pulseStatusGlow {
+    0%, 100% { opacity: 1; filter: drop-shadow(0 0 2px currentColor); }
+    50% { opacity: 0.5; filter: drop-shadow(0 0 8px currentColor); }
+}
+
+/* Layout header flexible */
+.card-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}

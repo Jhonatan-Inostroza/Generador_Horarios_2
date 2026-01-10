@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Civicnet CORE | Registro Premium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/acceso/CSS/Registrar_Usuario.css">
+    <style>
+        .status-msg {
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            display: none;
+            animation: slideIn 0.4s ease forwards;
+            border-left: 4px solid transparent;
+            font-weight: 600;
+        }
+        .msg-error { background: rgba(255, 68, 68, 0.1); border-color: #ff4444; color: #ff8888; }
+        .msg-success { background: rgba(0, 242, 255, 0.1); border-color: var(--neon); color: var(--neon); text-shadow: 0 0 10px rgba(0, 242, 255, 0.3); }
+        
+        .rol-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(0, 242, 255, 0.1);
+            color: var(--neon);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            border: 1px solid var(--neon);
+            text-transform: uppercase;
+        }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <div class="scan-line"></div>
+
+    <div class="split-screen-wrapper">
+        <div class="visual-side">
+            <div class="glow-sphere"></div>
+            <div class="sparks-container" id="sparks"></div>
+            <div class="visual-content">
+                <div class="main-portal-sphere">
+                    <div class="portal-rings"><span></span><span></span><span></span></div>
+                    <div class="inner-logo"></div>
+                </div>
+                <div class="text-reveal">
+                    <h2 class="brand-title">CIVICNET <span>CORE</span></h2>
+                    <div class="status-indicator">
+                        <div class="dot" id="global-dot"></div>
+                        <span id="global-status">SISTEMA ACTIVO</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-side">
+            <div class="mobile-portal-trigger" id="portalTrigger">
+                <div class="portal-orbit"><div class="portal-logo-mobile"></div></div>
+                <p class="tap-hint">PULSAR PARA INICIAR</p>
+            </div>
+
+            <div class="overlay-container" id="overlay">
+                <div class="neon-border-box" id="cardContainer">
+                    <div class="register-card">
+                        <div class="card-header">
+                            <div id="rol-display" class="rol-badge">USUARIO</div>
+                            <h1 id="main-title">Crear Cuenta</h1>
+                            <p id="main-subtitle">Configure sus credenciales de acceso</p>
+                        </div>
+
+                        <div id="status-box" class="status-msg"></div>
+
+                        <form method="POST" action="/registro" id="registroForm">
+                            <input type="hidden" name="rol" id="rol_input">
+                            
+                            <div class="input-field">
+                                <i class="fa-solid fa-user-astronaut"></i>
+                                <input type="text" name="usuario" placeholder="Usuario" required>
+                            </div>
+                            <div class="input-field">
+                                <i class="fa-solid fa-key"></i>
+                                <input type="password" name="password" placeholder="Contraseña" required>
+                            </div>
+                            <div class="input-field">
+                                <i class="fa-solid fa-shield-halved"></i>
+                                <input type="password" name="confirmar" placeholder="Confirmar Contraseña" required>
+                            </div>
+
+                            <button type="submit" class="btn-submit" id="btnSubmit">
+                                <span>Registrar usuario</span>
+                                <i class="fa-solid fa-bolt-lightning"></i>
+                            </button>
+                        </form>
+
+                        <div class="card-footer">
+                            <a href="/login">¿Ya tienes cuenta? Inicia Sesión</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = () => {
+            const params = new URLSearchParams(window.location.search);
+            const overlay = document.getElementById('overlay');
+            const trigger = document.getElementById('portalTrigger');
+            const card = document.getElementById('cardContainer');
+            const statusBox = document.getElementById('status-box');
+            const rolInput = document.getElementById('rol_input');
+            const rolDisplay = document.getElementById('rol-display');
+            const mainTitle = document.getElementById('main-title');
+
+            // --- CERRAR AL TOCAR FUERA (Solo Móvil) ---
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay && window.innerWidth <= 1024) {
+                    overlay.classList.remove('active');
+                    if(trigger) trigger.style.display = 'flex';
+                }
+            });
+
+            // --- LÓGICA DE ROL ---
+            let rolParam = params.get('rol');
+            let rolFinal = (rolParam && (rolParam.toLowerCase() === 'admin')) ? 'ADMINISTRADOR' : 'USUARIO';
+            rolInput.value = rolFinal;
+            rolDisplay.innerText = rolFinal;
+            mainTitle.innerText = `Persona ${rolFinal.charAt(0) + rolFinal.slice(1).toLowerCase()}`;
+
+            // --- ÉXITO / ERROR ---
+            if (params.get('success') === 'true') {
+                statusBox.style.display = 'block';
+                statusBox.className = 'status-msg msg-success';
+                statusBox.innerHTML = '<i class="fa-solid fa-circle-check"></i> ¡VINCULADO! Redirigiendo...';
+                if(window.innerWidth <= 1024) abrirPortal();
+                setTimeout(() => { window.location.href = "/login"; }, 2000);
+            }
+
+            if (params.get('error')) {
+                statusBox.style.display = 'block';
+                statusBox.className = 'status-msg msg-error';
+                card.classList.add('shake');
+                if (params.get('error') === 'exists') statusBox.innerHTML = 'El usuario ya existe.';
+                if(window.innerWidth <= 1024) abrirPortal();
+            }
+        };
+
+        function abrirPortal() {
+            document.getElementById('overlay').classList.add('active');
+            const trigger = document.getElementById('portalTrigger');
+            if(trigger) trigger.style.display = 'none';
+        }
+
+        // --- ANIMACIÓN DE CHISPAS (MANTENIDA) ---
+        function createSpark(containerId, isExplosion = false) {
+            const container = document.getElementById(containerId);
+            if(!container) return;
+            const spark = document.createElement('div');
+            spark.className = 'spark';
+            spark.style.left = Math.random() * 100 + '%';
+            spark.style.top = isExplosion ? '50%' : Math.random() * 100 + '%';
+            spark.style.setProperty('--xMove', (Math.random() * 400 - 200) + 'px');
+            const dur = Math.random() * (isExplosion ? 0.5 : 2) + 0.5;
+            spark.style.animationDuration = dur + 's';
+            container.appendChild(spark);
+            setTimeout(() => spark.remove(), dur * 1000);
+        }
+        
+        setInterval(() => createSpark('sparks'), 150);
+        document.getElementById('portalTrigger').addEventListener('click', abrirPortal);
+        document.getElementById('registroForm').addEventListener('submit', () => {
+            for(let i=0; i<30; i++) createSpark('sparks', true);
+        });
+    </script>
+</body>
+</html>

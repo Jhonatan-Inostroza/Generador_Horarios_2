@@ -1,0 +1,82 @@
+/* SecurityManager.css - ESTILOS PREMIUM */
+
+#pass-error {
+    color: var(--error-red);
+    background: rgba(239, 68, 68, 0.1);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 10px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    animation: slideInSecurity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideInSecurity {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.pass-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.toggle-pass {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    z-index: 10;
+    padding: 5px;
+    transition: all 0.2s ease;
+}
+
+.toggle-pass:hover {
+    color: var(--neon-cyan);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.pass-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+/* Estado de los botones de confirmación cuando están activos */
+.btn-confirm.active {
+    background: linear-gradient(135deg, var(--success-green), #059669) !important;
+    color: white !important;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+    border: none;
+}
+
+/* Animación para el label PENDIENTE */
+.pending-anim {
+    display: inline-block;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    animation: pulseStatusSecurity 2s infinite;
+}
+
+@keyframes pulseStatusSecurity {
+    0%, 100% { opacity: 1; filter: brightness(1); }
+    50% { opacity: 0.7; filter: brightness(1.2); }
+}
+
+/* Neon focus para inputs en edición */
+.edit-group.editing .neon-input:not([readonly]) {
+    border-color: rgba(34, 211, 238, 0.4);
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.05);
+}
+
+.fa-spinner {
+    font-size: 0.9rem;
+}

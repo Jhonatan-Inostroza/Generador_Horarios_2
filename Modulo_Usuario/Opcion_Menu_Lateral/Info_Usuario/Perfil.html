@@ -1,0 +1,143 @@
+<link rel="stylesheet" href="/menu_opcion/Info_Usuario/CSS/Perfil.css">
+
+<div class="profile-container">
+    <header class="content-header">
+        <h1 class="premium-title">Configuración de Usuario</h1>
+        <p class="subtitle">Gestión de identidad en Civicnet Core</p>
+    </header>
+
+    <div class="profile-grid">
+        <aside class="profile-aside">
+            <section class="profile-card edit-group" id="section-identity">
+                <div class="avatar-wrapper">
+                    <div id="profile-img-display"></div>
+                    
+                    <label for="upload-photo" class="camera-btn" id="confirm-avatar-change">
+                        <i class="fa-solid fa-camera"></i>
+                    </label>
+                    <input type="file" id="upload-photo" hidden accept="image/*" data-pendiente="false">
+                </div>
+                
+                <div class="user-info-header">
+                    <h2 id="display-full-name">Cargando...</h2>
+                    <span class="user-role-tag">Estudiante Core</span>
+                    <div class="status-indicator-mini">
+                        <span class="status-label">GUARDADO</span>
+                        <button class="edit-trigger"><i class="fa-solid fa-pen"></i></button>
+                    </div>
+                </div>
+
+                <div class="form-fields">
+                    <div class="input-box">
+                        <label>Nombres</label>
+                        <input type="text" id="input-real-name" class="neon-input" placeholder="Nombre" readonly>
+                    </div>
+                    <div class="input-box">
+                        <label>Apellidos</label>
+                        <input type="text" id="input-real-surname" class="neon-input" placeholder="Apellido" readonly>
+                    </div>
+                </div>
+
+                <div class="edit-controls">
+                    <button class="btn-cancel" title="Cancelar"><i class="fa-solid fa-xmark"></i></button>
+                    <button class="btn-confirm" id="confirm-real-name" title="Confirmar cambio local"><i class="fa-solid fa-check"></i></button>
+                </div>
+            </section>
+
+            <section class="profile-card edit-group">
+                <div class="card-header-flex">
+                    <h3 class="mini-title">Estado de Red</h3>
+                    <div class="status-indicator-mini">
+                        <span class="status-label">GUARDADO</span>
+                        <button class="edit-trigger"><i class="fa-solid fa-pen"></i></button>
+                    </div>
+                </div>
+                <div class="input-box mt-10">
+                    <select id="select-disponibilidad" class="neon-input" disabled>
+                        <option value="activo">🟢 En Línea</option>
+                        <option value="ausente">🟡 Ausente</option>
+                        <option value="invisible">⚪ Desconectado</option>
+                        <option value="ocupado">🔴 Ocupado</option>
+                    </select>
+                </div>
+                <div class="edit-controls">
+                    <button class="btn-cancel"><i class="fa-solid fa-xmark"></i></button>
+                    <button class="btn-confirm" id="confirm-status"><i class="fa-solid fa-check"></i></button>
+                </div>
+                <div class="id-badge">
+                    <span>NODO ID:</span>
+                    <span id="status-id-display" class="neon-text">#0000-CV</span>
+                </div>
+            </section>
+        </aside>
+
+        <main class="profile-main">
+            <section class="profile-card edit-group">
+                <div class="item-header">
+                    <label class="section-label">Mi Meta del Ciclo</label>
+                    <div class="status-indicator-mini">
+                        <span class="status-label">GUARDADO</span>
+                        <button class="edit-trigger"><i class="fa-solid fa-pen"></i></button>
+                    </div>
+                </div>
+                <textarea id="input-user-bio" class="neon-input mt-10" 
+                          maxlength="150" placeholder="Escribe tu meta aquí..." 
+                          readonly style="min-height: 100px; resize: none;"></textarea>
+                <div class="edit-controls">
+                    <button class="btn-cancel"><i class="fa-solid fa-xmark"></i></button>
+                    <button class="btn-confirm" id="confirm-bio-change"><i class="fa-solid fa-check"></i></button>
+                </div>
+            </section>
+
+            <section class="profile-card security-section">
+                <h3 class="card-title"><i class="fa-solid fa-shield-halved"></i> Seguridad del Nodo</h3>
+                
+                <div class="edit-group security-item">
+                    <div class="item-header">
+                        <label>ID de Acceso (Usuario)</label>
+                        <div class="status-indicator-mini">
+                            <span class="status-label">GUARDADO</span>
+                            <button class="edit-trigger"><i class="fa-solid fa-pen"></i></button>
+                        </div>
+                    </div>
+                    <input type="text" id="display-name-input" class="neon-input" readonly>
+                    <div class="edit-controls">
+                        <button class="btn-cancel"><i class="fa-solid fa-xmark"></i></button>
+                        <button class="btn-confirm" id="confirm-user-change"><i class="fa-solid fa-check"></i></button>
+                    </div>
+                </div>
+
+                <div class="card-divider"></div>
+
+                <div class="edit-group security-item">
+                    <div class="item-header">
+                        <label>Credenciales de Acceso</label>
+                        <div class="status-indicator-mini">
+                            <span class="status-label">GUARDADO</span>
+                            <button class="edit-trigger"><i class="fa-solid fa-pen"></i></button>
+                        </div>
+                    </div>
+                    <div class="pass-stack">
+                        <div class="pass-wrapper">
+                            <input type="password" id="pass-nueva" class="neon-input" placeholder="Nueva Contraseña" readonly>
+                            <i class="fa-solid fa-eye toggle-pass" data-target="pass-nueva"></i>
+                        </div>
+                        <div class="pass-wrapper">
+                            <input type="password" id="pass-confirmar" class="neon-input" placeholder="Confirmar Contraseña" readonly>
+                            <i class="fa-solid fa-eye toggle-pass" data-target="pass-confirmar"></i>
+                        </div>
+                    </div>
+                    <div id="pass-error" class="error-msg-container"></div>
+                    <div class="edit-controls">
+                        <button class="btn-cancel"><i class="fa-solid fa-xmark"></i></button>
+                        <button class="btn-confirm" id="confirm-pass-change"><i class="fa-solid fa-check"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <button class="main-save-btn" id="main-save-btn">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Sincronizar Cambios Globales
+            </button>
+        </main>
+    </div>
+</div>

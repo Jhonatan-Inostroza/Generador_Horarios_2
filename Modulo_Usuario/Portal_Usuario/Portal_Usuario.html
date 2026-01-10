@@ -1,0 +1,73 @@
+<!-- C:\Users\Jhonatan Inostroza\Desktop\Proyectos\Generar_Horarios\Modulo_Usuario\Portal_Usuario\Portal_Usuario.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Portal de Usuario</title>
+    <link rel="stylesheet" href="/menu/CSS/Menu_Lateral.css">
+    <link rel="stylesheet" href="/usuario/CSS/Portal_Usuario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="/menu_opcion/Crear_Horario/CSS/Crear_Horario.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <div id="sidebar-container"></div> 
+
+        <main class="main-content">
+            <button class="floating-toggle-btn" id="master-toggle">☰</button>
+            <div id="content-area" style="transition: opacity 0.3s ease;"></div>
+        </main>
+    </div>
+
+    <schedule-modal id="scheduleModal"></schedule-modal>
+
+    <script src="/usuario/JS/Contenido_Portal.js"></script>
+    
+    <script>
+        async function inicializarPortal() {
+            try {
+                // 1. Cargar Menú Lateral
+                const menuRes = await fetch('/menu/Menu_Lateral.html');
+                const menuHtml = await menuRes.text();
+                document.getElementById('sidebar-container').innerHTML = menuHtml;
+
+                // 2. Cargar Contenido de Inicio por defecto
+                // Ahora cargarPagina ya existe porque cargamos el script arriba
+                if (typeof cargarPagina === 'function') {
+                    cargarPagina('/menu_opcion/Inicio/Inicio.html'); 
+                } else {
+                    const inicioRes = await fetch('/menu_opcion/Inicio/Inicio.html');
+                    const inicioHtml = await inicioRes.text();
+                    document.getElementById('content-area').innerHTML = inicioHtml;
+                }
+
+                // 3. Configurar el botón del Sidebar (Master Toggle)
+                const btn = document.getElementById('master-toggle');
+                const sidebar = document.getElementById('sidebar');
+                const main = document.querySelector('.main-content');
+
+                if (btn && sidebar) {
+                    btn.addEventListener('click', () => {
+                        sidebar.classList.toggle('collapsed');
+                        main.classList.toggle('expanded');
+                        // El icono cambia de ☰ a ✕
+                        btn.textContent = sidebar.classList.contains('collapsed') ? '☰' : '✕';
+                    });
+                }
+
+            } catch (err) {
+                console.error("Error inicializando el portal:", err);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', inicializarPortal);
+    </script>
+
+    <script type="module" src="/menu_opcion/Crear_Horario/JS/Crear_Horario.js"></script>
+    <script type="module" src="/menu_opcion/Crear_Horario/Contenido_Tab/Modal/Modal.js"></script>
+    <script type="module" src="/menu_opcion/Info_Usuario/JS/MetaComponent.js"></script>
+    <script type="module" src="/menu_opcion/Info_Usuario/JS/Perfil.js"></script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+/* ===========================================================
+   CIVICNET PREMIUM UI - RESTAURACIÓN TOTAL Y RESPONSIVE
+   =========================================================== */
+
+:root {
+    --glass-bg: rgba(15, 23, 42, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --neon-cyan: #22d3ee;
+    --neon-blue: #3b82f6;
+    --success-green: #10b981;
+    --warning-orange: #f59e0b;
+    --error-red: #ef4444;
+    --text-main: #f8fafc;
+    --text-dim: #94a3b8;
+    --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.profile-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 25px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- TÍTULOS (Legibilidad Mejorada) --- */
+.content-header { 
+    margin-bottom: 40px; 
+    text-align: center; /* Opcional: centrado suele verse mejor en headers */
+}
+
+.premium-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    /* Cambiamos el blanco del degradado por el azul neon para que se vea en fondo claro */
+    background: linear-gradient(135deg, var(--neon-blue) 0%, var(--neon-cyan) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* Sombra interna/externa sutil para definir las letras */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    margin: 0;
+}
+
+.subtitle { 
+    /* Cambiamos var(--text-dim) por un color más oscuro (gris azulado) */
+    color: #475569; 
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+/* --- GRID Y TARJETAS --- */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 30px;
+}
+
+.profile-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: var(--card-shadow);
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+/* --- AVATAR MASIVO --- */
+.avatar-wrapper {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 20px;
+}
+
+#profile-img-display {
+    width: 140px !important;
+    height: 140px !important;
+    border-radius: 50% !important;
+    background: #0a0f1d !important;
+    border: 3px solid var(--neon-cyan) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.3);
+}
+
+#profile-img-display b {
+    font-size: 4.5rem !important;
+    font-weight: 900 !important;
+    color: #ffffff !important;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+#profile-img-display img { width: 100%; height: 100%; object-fit: cover; }
+
+.camera-btn {
+    position: absolute !important;
+    bottom: 5px;
+    right: 5px;
+    background: var(--neon-cyan) !important;
+    color: #0f172a !important;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 4px solid #0f172a !important;
+    z-index: 10;
+    transition: 0.3s;
+}
+.camera-btn:hover { transform: scale(1.1); filter: brightness(1.2); }
+
+/* --- INPUTS Y FORMULARIOS --- */
+.neon-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 12px;
+    padding: 12px 15px;
+    color: white !important;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+.neon-input:focus {
+    border-color: var(--neon-cyan) !important;
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
+    outline: none;
+}
+
+.neon-input[readonly] { opacity: 0.6; cursor: not-allowed; }
+
+/* --- BOTONES DE CONTROL --- */
+.edit-controls {
+    display: none; 
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.edit-group.editing .edit-controls { display: flex !important; }
+.edit-group.editing .edit-trigger { display: none !important; }
+
+.btn-confirm, .btn-cancel, .edit-trigger {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-trigger:hover { background: var(--neon-blue); border-color: var(--neon-blue); }
+.btn-confirm:hover { background: var(--success-green); border-color: var(--success-green); }
+.btn-cancel:hover { background: var(--error-red); border-color: var(--error-red); }
+
+/* --- ESTADOS Y BADGES --- */
+.status-indicator-mini { display: flex; align-items: center; gap: 10px; }
+.status-label { font-size: 0.7rem; font-weight: 800; color: var(--text-dim); letter-spacing: 1px; }
+.status-label.pending-anim { color: var(--warning-orange); animation: pulse 1.5s infinite; }
+
+.user-role-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+/* --- BOTÓN FLOTANTE GLOBAL --- */
+.main-save-btn {
+    position: fixed;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--success-green), #065f46);
+    color: white;
+    padding: 18px 40px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1000;
+    opacity: 0;
+}
+.main-save-btn.visible { bottom: 30px; opacity: 1; }
+.main-save-btn:hover { transform: translateX(-50%) translateY(-5px); box-shadow: 0 15px 40px rgba(16, 185, 129, 0.6); }
+
+/* ===========================================================
+   RESPONSIVE DESIGN (MEJORADO)
+   =========================================================== */
+
+@media (max-width: 1024px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .profile-aside {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    .profile-aside section { margin-bottom: 0; }
+}
+
+@media (max-width: 768px) {
+    .profile-container { margin: 20px auto; padding: 0 15px; }
+    .premium-title { font-size: 1.8rem; text-align: center; }
+    .subtitle { text-align: center; font-size: 0.9rem; }
+    
+    .profile-aside { grid-template-columns: 1fr; }
+    
+    .avatar-wrapper { width: 120px; height: 120px; }
+    #profile-img-display { width: 120px !important; height: 120px !important; }
+    #profile-img-display b { font-size: 3.5rem !important; }
+
+    .main-save-btn {
+        width: 85%;
+        padding: 15px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-header-flex, .item-header {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 12px;
+    }
+    .status-indicator-mini { width: 100%; justify-content: space-between; }
+}
+
+@keyframes pulse { 50% { opacity: 0.4; } }

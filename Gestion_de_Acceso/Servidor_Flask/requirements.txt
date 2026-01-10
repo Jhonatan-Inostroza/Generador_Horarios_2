@@ -1,0 +1,8 @@
+# Para sacarel requitements.txt usar pip freeze > requirements.txt
+Flask==3.1.2
+python-dotenv==1.2.1
+requests==2.32.5
+libsql-client==0.3.1
+reportlab==4.4.7
+pillow==12.1.0
+openpyxl==3.1.5

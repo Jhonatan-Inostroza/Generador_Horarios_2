@@ -1,0 +1,63 @@
+<!-- Gestion_de_Acceso\Portal_Ingreso\Principal.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Acceso Integral | Civicnet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/acceso/CSS/Principal.css">
+</head>
+<body>
+
+    <div class="glass-background"></div>
+
+    <header class="main-header">
+        <div class="logo-badge">ACCESO INTEGRAL</div>
+        <h1>Sistema de Gestión Académica</h1>
+        <p class="subtitle">Bienvenido al núcleo inteligente. Seleccione su perfil para continuar.</p>
+    </header>
+
+    <main class="access-container">
+        
+        <section class="access-side side-left">
+            <a href="/login?rol=admin" class="card">
+                <div class="icon-wrapper"><i class="fa-solid fa-user-shield"></i></div>
+                <h2>ADMINISTRADOR</h2>
+                <p>Gestión avanzada y control total del sistema.</p>
+                <span class="btn-enter">INGRESAR <i class="fa-solid fa-arrow-left"></i></span>
+            </a>
+        </section>
+
+        <section class="access-core">
+            <div class="portal-wrapper">
+                <div class="portal-ring ring-spin"></div>
+                <div class="portal-ring ring-pulse"></div>
+                <div class="portal-core">
+                    <img src="/acceso/CSS/fondo-login.jpg" alt="Civicnet Core">
+                </div>
+            </div>
+        </section>
+
+        <section class="access-side side-right">
+            <a href="/login?rol=user" class="card">
+                <div class="icon-wrapper"><i class="fa-solid fa-graduation-cap"></i></div>
+                <h2>ESTUDIANTE / USUARIO</h2>
+                <p>Consulta de horarios y visualización académica.</p>
+                <span class="btn-enter">INGRESAR <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2025 <span class="author">Jhonatan Inostroza</span> <span class="neon-amp">&</span> <span class="author">Fabian Campoverde</span></p>
+            <div class="footer-divider"></div>
+            <!-- <p class="footer-small">Sistema Inteligente de Generación de Horarios Académicos</p> -->
+        </div>
+    </footer>
+
+</body>
+</html>
