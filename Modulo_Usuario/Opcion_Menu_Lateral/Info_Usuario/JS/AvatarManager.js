@@ -2,6 +2,7 @@
  * AvatarManager.js - Gestión de Imagen con Auto-Compresión
  */
 import { AvatarUI } from './AvatarUI.js';
+import { safeTextNodo } from './utils.js'; // Asegura que todo sea string
 
 export function initAvatarManager(nodoInicial) {
     const fileInput = document.getElementById('upload-photo');
@@ -16,7 +17,6 @@ export function initAvatarManager(nodoInicial) {
         const file = e.target.files[0];
         if (!file || !file.type.startsWith('image/')) return;
 
-        // Quitamos el bloqueo de 2MB porque ahora la vamos a comprimir nosotros
         const reader = new FileReader();
         
         reader.onloadstart = () => AvatarUI.setLoadingState(true);
@@ -26,9 +26,8 @@ export function initAvatarManager(nodoInicial) {
             img.src = event.target.result;
 
             img.onload = function() {
-                // --- LÓGICA DE COMPRESIÓN (Canvas) ---
                 const canvas = document.createElement('canvas');
-                const MAX_SIZE = 400; // Tamaño suficiente para un avatar nítido
+                const MAX_SIZE = 400;
                 let width = img.width;
                 let height = img.height;
 
@@ -49,21 +48,16 @@ export function initAvatarManager(nodoInicial) {
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, width, height);
 
-                // Convertimos a JPEG con calidad 0.7 para que pese poquísimo (KB)
                 const optimizedBase64 = canvas.toDataURL('image/jpeg', 0.7);
                 
-                // 1. Render local inmediato con la versión optimizada
                 renderAvatar({ ...nodoActivo, foto: optimizedBase64 });
                 
-                // 2. Guardamos en el dataset para que Perfil.js la recoja al guardar
                 fileInput.dataset.base64 = optimizedBase64;
                 fileInput.dataset.pendiente = "true";
                 
-                // 3. UI: Quitar loading y activar botón de confirmación
                 AvatarUI.setLoadingState(false);
                 AvatarUI.setConfirmBtn(true);
 
-                // 4. Actualizar etiqueta de grupo a PENDIENTE
                 const sectionLabel = cameraBtn?.closest('.edit-group')?.querySelector('.status-label');
                 if (sectionLabel) {
                     sectionLabel.innerText = "PENDIENTE";
@@ -96,19 +90,22 @@ export function renderAvatar(nodo) {
         img.src = nodo.foto;
         img.alt = "Avatar";
         avatarDiv.appendChild(img);
-    } else {
-        const textElement = document.createElement('b'); 
-        let letras = "??";
-        const nom = (nodo.nombres || "").trim();
-        const ape = (nodo.apellidos || "").trim();
-        
-        if (nom !== "") {
-            letras = nom.charAt(0) + (ape !== "" ? ape.charAt(0) : "");
-        } else if (nodo.usuario) {
-            letras = nodo.usuario.substring(0, 2);
-        }
-        
-        textElement.innerText = letras.toUpperCase();
-        avatarDiv.appendChild(textElement);
+        return;
     }
+
+    const textElement = document.createElement('b'); 
+    let letras = "??";
+
+    const nom = safeTextNodo(nodo.nombres);
+    const ape = safeTextNodo(nodo.apellidos);
+    const usuario = safeTextNodo(nodo.usuario);
+
+    if (nom !== "") {
+        letras = nom.charAt(0) + (ape !== "" ? ape.charAt(0) : "");
+    } else if (usuario !== "") {
+        letras = usuario.substring(0, 2);
+    }
+
+    textElement.innerText = letras.toUpperCase();
+    avatarDiv.appendChild(textElement);
 }

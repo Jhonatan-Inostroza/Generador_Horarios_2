@@ -1,6 +1,8 @@
 /**
  * StatusManager.js - Gestión de Disponibilidad de Red
  */
+import { safeTextNodo } from './utils.js';
+
 export function initStatusManager() {
     const btnStatus = document.getElementById('confirm-status');
     const selectDisp = document.getElementById('select-disponibilidad');
@@ -9,11 +11,10 @@ export function initStatusManager() {
 
     if (!btnStatus || !selectDisp) return;
 
-    // --- DETECTAR CAMBIO EN EL SELECT ---
     selectDisp.addEventListener('change', () => {
         const raw = sessionStorage.getItem('nodo_activo');
         const nodo = raw ? JSON.parse(raw) : {};
-        const estadoOriginal = nodo.disponibilidad || "activo";
+        const estadoOriginal = safeTextNodo(nodo.disponibilidad, "activo");
 
         const haCambiado = selectDisp.value !== estadoOriginal;
         const label = getStatusLabel();
@@ -31,37 +32,31 @@ export function initStatusManager() {
         }
     });
 
-    // --- CONFIRMACIÓN LOCAL (CHECK) ---
     btnStatus.onclick = (e) => {
         const group = btnStatus.closest('.edit-group');
         const label = getStatusLabel();
         
         if (group && group.classList.contains('editing')) {
             e.preventDefault();
-            
-            // 1. Bloqueamos visualmente
             group.classList.remove('editing');
             selectDisp.setAttribute('disabled', true);
             
-            // 2. Estado Pendiente
             if (label) {
                 label.innerText = "PENDIENTE";
                 label.classList.add('pending-anim'); 
                 label.style.color = "var(--warning-orange)";
             }
             
-            // 3. Avisamos al cerebro (Perfil.js)
             window.dispatchEvent(new CustomEvent('perfil-cambio-detectado'));
         }
     };
 
-    // --- RESET GLOBAL ---
     window.resetStatusVisuals = () => {
         const raw = sessionStorage.getItem('nodo_activo');
         const nodo = raw ? JSON.parse(raw) : {};
         const label = getStatusLabel();
         
-        selectDisp.value = nodo.disponibilidad || "activo";
+        selectDisp.value = safeTextNodo(nodo.disponibilidad, "activo");
         selectDisp.setAttribute('disabled', true);
 
         btnStatus.innerHTML = '<i class="fa-solid fa-check"></i>';
@@ -76,7 +71,6 @@ export function initStatusManager() {
         }
     };
 
-    // Estilo inicial
     btnStatus.style.opacity = "0.4";
     btnStatus.style.pointerEvents = "none";
 }

@@ -1,6 +1,5 @@
-/**
- * SecurityManager.js - Gestión de Acceso y Credenciales
- */
+import { safeTextNodo } from './utils.js';
+
 export function initSecurityManager(nodoInicial) {
     let nodoRef = nodoInicial;
 
@@ -32,7 +31,6 @@ export function initSecurityManager(nodoInicial) {
         btn.style.opacity = active ? "1" : "0.3";
     };
 
-    // --- VISIBILIDAD DE PASSWORD ---
     document.querySelectorAll('.toggle-pass').forEach(icon => {
         icon.onclick = function() {
             const targetId = this.getAttribute('data-target');
@@ -45,14 +43,12 @@ export function initSecurityManager(nodoInicial) {
         };
     });
 
-    // --- VALIDACIÓN USUARIO ---
     inputUsername?.addEventListener('input', () => {
         const valorActual = inputUsername.value.trim();
-        const valorOriginal = (nodoRef.usuario || "").trim();
+        const valorOriginal = safeTextNodo(nodoRef.usuario);
         setBtnState(btnUser, (valorActual !== valorOriginal && valorActual !== ""));
     });
 
-    // --- VALIDACIÓN PASSWORD ---
     const validarPass = () => {
         if(!p1 || !p2) return;
         const v1 = p1.value;
@@ -80,14 +76,11 @@ export function initSecurityManager(nodoInicial) {
     p1?.addEventListener('input', validarPass);
     p2?.addEventListener('input', validarPass);
 
-    // --- CONFIRMACIÓN LOCAL (CHECK) ---
     [btnUser, btnPass].forEach(btn => {
         if (!btn) return;
         btn.onclick = () => {
             const group = btn.closest('.edit-group');
-            // Cerramos modo edición
             group?.classList.remove('editing');
-            // Bloqueamos inputs del grupo
             group?.querySelectorAll('input').forEach(i => i.setAttribute('readonly', true));
             
             updateLabel(btn, "PENDIENTE", true);
@@ -104,5 +97,6 @@ export function initSecurityManager(nodoInicial) {
         });
         if(p1) p1.value = "";
         if(p2) p2.value = "";
+        if(inputUsername) inputUsername.value = safeTextNodo(nodoRef.usuario);
     };
 }

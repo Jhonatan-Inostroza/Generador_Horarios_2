@@ -1,8 +1,6 @@
-/**
- * UIManager.js - Orquestador de Interfaz Premium
- */
+import { safeTextNodo } from './utils.js';
+
 export function initUIManager() {
-    // 1. GESTIÓN DE LÁPICES
     document.querySelectorAll('.edit-trigger').forEach(btn => {
         btn.onclick = (e) => {
             const group = e.target.closest('.edit-group');
@@ -18,7 +16,6 @@ export function initUIManager() {
         };
     });
 
-    // 2. GESTIÓN DE CANCELAR (X)
     document.querySelectorAll('.btn-cancel').forEach(btn => {
         btn.onclick = (e) => {
             const group = e.target.closest('.edit-group');
@@ -40,12 +37,10 @@ export function initUIManager() {
         };
     });
 
-    // 3. GESTIÓN DE CONFIRMAR (Check local)
-    // Se mantiene para selectores simples como UI_CONFIG
     document.querySelectorAll('.btn-confirm').forEach(btn => {
         btn.onclick = (e) => {
             const group = e.target.closest('.edit-group');
-            if (!group || group.id === "section-avatar") return; // Avatar tiene su propia lógica
+            if (!group || group.id === "section-avatar") return;
 
             const inputs = group.querySelectorAll('.neon-input, input, select');
             const statusLabel = group.querySelector('.status-label');
@@ -78,15 +73,14 @@ function verificarCambio(input) {
     const mapa = {
         'select-vista': nodo.ui_config?.vista_horario || "calendario",
         'select-hora': nodo.ui_config?.formato_hora || "12",
-        'input-real-name': nodo.nombres || "",
-        'input-real-surname': nodo.apellidos || "",
-        'display-name-input': nodo.usuario || "",
+        'input-real-name': safeTextNodo(nodo.nombres),
+        'input-real-surname': safeTextNodo(nodo.apellidos),
+        'display-name-input': safeTextNodo(nodo.usuario),
         'select-disponibilidad': nodo.disponibilidad || "activo"
     };
 
-    const valorOriginal = mapa[input.id];
     if (input.type === 'password') return input.value.length > 0;
-    return input.value.trim() !== String(valorOriginal || "").trim();
+    return input.value.trim() !== String(mapa[input.id] || "").trim();
 }
 
 function restaurarValorOriginal(input) {
@@ -95,9 +89,9 @@ function restaurarValorOriginal(input) {
     const mapa = {
         'select-vista': nodo.ui_config?.vista_horario || "calendario",
         'select-hora': nodo.ui_config?.formato_hora || "12",
-        'input-real-name': nodo.nombres || "",
-        'input-real-surname': nodo.apellidos || "",
-        'display-name-input': nodo.usuario || "",
+        'input-real-name': safeTextNodo(nodo.nombres),
+        'input-real-surname': safeTextNodo(nodo.apellidos),
+        'display-name-input': safeTextNodo(nodo.usuario),
         'select-disponibilidad': nodo.disponibilidad || "activo"
     };
     if (input.type !== 'password') input.value = mapa[input.id] || "";
