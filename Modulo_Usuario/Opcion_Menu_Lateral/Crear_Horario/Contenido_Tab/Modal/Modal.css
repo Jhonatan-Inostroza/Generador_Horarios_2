@@ -238,3 +238,19 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
+
+/* Añadir al final de Modal.css */
+
+.schedule-table {
+    display: grid;
+    /* Cambiamos el primer valor de 120px a 150px para que quepa el rango */
+    grid-template-columns: 150px repeat(6, minmax(120px, 1fr)) !important;
+}
+
+.hour {
+    font-size: 0.75rem; /* Ajuste sutil para que el rango se vea premium */
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

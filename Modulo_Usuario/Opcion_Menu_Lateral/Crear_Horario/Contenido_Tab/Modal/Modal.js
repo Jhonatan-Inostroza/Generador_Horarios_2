@@ -1,5 +1,4 @@
-import { imprimirHorariosSeleccionados } from
-  './Imprimir/printHorarios.js';
+import { imprimirHorariosSeleccionados } from './Imprimir/printHorarios.js';
 
 async function loadTemplate(shadow) {
   const [html, cssModal, cssGrid] = await Promise.all([
@@ -90,30 +89,42 @@ class ScheduleModal extends HTMLElement {
     if(this.$checkbox) this.$checkbox.checked = this.selectedSchedules.has(this.index);
 
     const days = ['LUNES','MARTES','MIERCOLES','JUEVES','VIERNES','SABADO'];
-    const hours = Array.from({ length: 16 }, (_, i) => String(7 + i).padStart(2, '0') + ':00');
+    
+    // Generar horas con rango para el label y valor base para el data-hour
+    const hours = Array.from({ length: 16 }, (_, i) => {
+        const start = String(7 + i).padStart(2, '0') + ':00';
+        const end = String(8 + i).padStart(2, '0') + ':00';
+        return { label: `${start} - ${end}`, value: start };
+    });
 
-    // Grid Moderno
+    // Grid con etiquetas de rango
     this.$grid.innerHTML = `
       <div class="schedule-table">
         <div class="header-day">Hora</div>
         ${days.map(d => `<div class="header-day">${d}</div>`).join('')}
         ${hours.map(h => `
-          <div class="hour">${h}</div>
-          ${days.map(d => `<div class="cell" data-day="${d}" data-hour="${h}"></div>`).join('')}
+          <div class="hour">${h.label}</div>
+          ${days.map(d => `<div class="cell" data-day="${d}" data-hour="${h.value}"></div>`).join('')}
         `).join('')}
       </div>
     `;
 
     // Pintar bloques
     schedule.forEach(item => {
-      // Generamos el color una sola vez y lo guardamos en el objeto
       if (!item.color) {
           item.color = this._color(item.asignatura);
       }
-      const cell = this.shadowRoot.querySelector(`.cell[data-day="${item.day.toUpperCase()}"][data-hour="${item.start}"]`);
+
+      // Normalización de la hora para búsqueda (ej: de "7:00" a "07:00")
+      const hourPart = item.start.split(':')[0].trim();
+      const startTimeNorm = hourPart.padStart(2, '0') + ':00';
+      const dayNorm = item.day.toUpperCase().trim();
+
+      const cell = this.shadowRoot.querySelector(`.cell[data-day="${dayNorm}"][data-hour="${startTimeNorm}"]`);
+      
       if (cell) {
         cell.innerHTML = `
-          <div class="course-box" style="background:${this._color(item.asignatura)}; border-left: 4px solid rgba(0,0,0,0.2)">
+          <div class="course-box" style="background:${item.color}; border-left: 4px solid rgba(0,0,0,0.2)">
             <strong>${item.asignatura}</strong>
             <small>Grupo ${item.grupo}</small>
           </div>
@@ -140,4 +151,5 @@ class ScheduleModal extends HTMLElement {
     return `hsl(${Math.abs(hash) % 360}, 65%, 45%)`;
   }
 }
+
 customElements.define('schedule-modal', ScheduleModal);
